@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: center;
+  width: 60vw;
+  padding: 4rem;
+  margin: 0 auto;
+}
+
+.title {
+  position: relative;
+}
+
+.duck {
+  position: absolute;
+  top: 5px;
+  right: -40px;
+  color: var(--main-color);
+  font-size: 3rem;
+}
