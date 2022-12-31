@@ -1,8 +1,10 @@
 
 export type TypeState = {
   keysPressed: number,
-  correctKeysPress: number,
-  wpm: number
+  correctKeysPressed: number,
+  wpm: number,
+  rawWPM: number,
+  accuracy: number
 }
 
 export type TimeState = {
