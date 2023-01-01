@@ -1,3 +1,4 @@
+"use client"
 import type { TypeState, TimeState, TextState, Action } from "../util/types";
 
 export const typeState: TypeState = {
