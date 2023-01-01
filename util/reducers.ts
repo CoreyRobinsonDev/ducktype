@@ -26,11 +26,18 @@ export const typeReducer = (state: TypeState, {type, payload}: Action): TypeStat
     case "keypress": return { ...state, keysPressed: state.keysPressed++ };
     case "correct keypress": return { ...state, correctKeysPressed: state.correctKeysPressed++ };
     case "calculate accuracy": return { ...state, accuracy: state.correctKeysPressed / state.keysPressed };
-    case "calculate wpm": return {
-      ...state,
-      rawWPM: Math.floor((state.keysPressed / 5) / (payload/ 60)), 
-      wpm: Math.floor(state.rawWPM * state.accuracy)
-    }
+    case "calculate raw wpm": return { ...state, rawWPM: (state.keysPressed / 5) / (payload / 60) };
+    case "calculate wpm": return { ...state, wpm: state.rawWPM * state.accuracy };
+    case "reset": 
+      const highestWPM = localStorage.getItem("wpm") ? JSON.parse(localStorage.getItem("wpm") ?? "") : 0;
+      const highestRawWPM = localStorage.getItem("rawWPM") ? JSON.parse(localStorage.getItem("rawWPM") ?? "") : 0;
+      const highestAccuracy = localStorage.getItem("accuracy") ? JSON.parse(localStorage.getItem("accuracy") ?? "") : 0;
+
+      if (state.wpm > highestWPM) localStorage.setItem("wpm", JSON.stringify(state.wpm));
+      if (state.rawWPM > highestRawWPM) localStorage.setItem("rawWPM", JSON.stringify(state.rawWPM));
+      if (state.accuracy > highestAccuracy) localStorage.setItem("accuracy", JSON.stringify(state.accuracy));
+
+      return {...typeState}
     default: return state;
   }
 }
@@ -41,6 +48,7 @@ export const timeReducer = (state: TimeState, {type, payload}: Action): TimeStat
     case "stop timer": return { ...state, hasStarted: false };
     case "decrement": return { ...state, time: state.time-- };
     case "set time": return { ...state, time: payload, initialTime: payload };
+    case "reset": return timeState;
     default: return state;
   } 
 }
@@ -59,6 +67,7 @@ export const textReducer = (state: TextState, { type, payload }: Action): TextSt
       substring: state.substring.slice(0, state.substring.length - 1),
       prompt: state.originalPrompt.slice(state.substring.length - 1)
     }
-    default: return state
+    case "reset": return textState;
+    default: return state;
   }
 }
