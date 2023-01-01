@@ -8,13 +8,10 @@ import Header from "./(components)/(header)/Header";
 import { typeState, timeState, textState, typeReducer, timeReducer, textReducer } from "../util/reducers";
 
 const Home = () => {
-  const [{keysPressed, correctKeysPressed, wpm, rawWPM, accuracy}, typeDispatch] = useReducer(typeReducer, typeState);
+  const [{keysPressed, correctKeysPressed, wpm, rawWPM, accuracy, highestWPM, highestRawWPM, highestAccuracy}, typeDispatch] = useReducer(typeReducer, typeState);
   const [{initialTime, time, hasStarted}, timeDispatch] = useReducer(timeReducer, timeState)
   const [{ value, substring, originalPrompt, prompt }, textDispatch] = useReducer(textReducer, textState);
   const [animation, setAnimation] = useState("running");
-  const highestWPM = localStorage.getItem("wpm") ? JSON.parse(localStorage.getItem("wpm") ?? "") : 0;
-  const highestRawWPM = localStorage.getItem("rawWPM") ? JSON.parse(localStorage.getItem("rawWPM") ?? "") : 0;
-  const highestAccuracy = localStorage.getItem("accuracy") ? JSON.parse(localStorage.getItem("accuracy") ?? "") : 0;
 
   useEffect(() => {
     let interval: NodeJS.Timer;

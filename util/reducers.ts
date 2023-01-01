@@ -5,7 +5,10 @@ export const typeState: TypeState = {
   correctKeysPressed: 0,
   wpm: 0,
   rawWPM: 0,
-  accuracy: 0
+  accuracy: 0,
+  highestWPM: localStorage.getItem("wpm") ? JSON.parse(localStorage.getItem("wpm") ?? "") : 0,
+  highestRawWPM: localStorage.getItem("rawWPM") ? JSON.parse(localStorage.getItem("rawWPM") ?? "") : 0,
+  highestAccuracy: localStorage.getItem("accuracy") ? JSON.parse(localStorage.getItem("accuracy") ?? "") : 0
 }
 
 export const timeState: TimeState = {
@@ -29,13 +32,9 @@ export const typeReducer = (state: TypeState, {type, payload}: Action): TypeStat
     case "calculate raw wpm": return { ...state, rawWPM: (state.keysPressed / 5) / (payload / 60) };
     case "calculate wpm": return { ...state, wpm: state.rawWPM * state.accuracy };
     case "reset": 
-      const highestWPM = localStorage.getItem("wpm") ? JSON.parse(localStorage.getItem("wpm") ?? "") : 0;
-      const highestRawWPM = localStorage.getItem("rawWPM") ? JSON.parse(localStorage.getItem("rawWPM") ?? "") : 0;
-      const highestAccuracy = localStorage.getItem("accuracy") ? JSON.parse(localStorage.getItem("accuracy") ?? "") : 0;
-
-      if (state.wpm > highestWPM) localStorage.setItem("wpm", JSON.stringify(state.wpm));
-      if (state.rawWPM > highestRawWPM) localStorage.setItem("rawWPM", JSON.stringify(state.rawWPM));
-      if (state.accuracy > highestAccuracy) localStorage.setItem("accuracy", JSON.stringify(state.accuracy));
+      if (state.wpm > state.highestWPM) localStorage.setItem("wpm", JSON.stringify(state.wpm));
+      if (state.rawWPM > state.highestRawWPM) localStorage.setItem("rawWPM", JSON.stringify(state.rawWPM));
+      if (state.accuracy > state.highestAccuracy) localStorage.setItem("accuracy", JSON.stringify(state.accuracy));
 
       return {...typeState}
     default: return state;
