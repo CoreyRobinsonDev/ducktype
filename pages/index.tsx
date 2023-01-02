@@ -1,14 +1,12 @@
-"use client"
 import { useState, useEffect, useReducer } from "react";
 import { BiTimeFive } from "react-icons/bi";
-import { RiVipCrownFill } from "react-icons/ri";
 
-import styles from "./home.module.css";
-import Header from "./(components)/(header)/Header";
+import styles from "../styles/home.module.css";
+import Header from "../components/Header";
 import { typeState, timeState, textState, typeReducer, timeReducer, textReducer } from "../util/reducers";
 
 const Home = () => {
-  const [{keysPressed, correctKeysPressed, wpm, rawWPM, accuracy, highestWPM, highestRawWPM, highestAccuracy}, typeDispatch] = useReducer(typeReducer, typeState);
+  const [{keysPressed, correctKeysPressed, wpm, rawWPM, accuracy }, typeDispatch] = useReducer(typeReducer, typeState);
   const [{initialTime, time, hasStarted}, timeDispatch] = useReducer(timeReducer, timeState)
   const [{ value, substring, originalPrompt, prompt }, textDispatch] = useReducer(textReducer, textState);
   const [animation, setAnimation] = useState("running");
@@ -52,6 +50,7 @@ const Home = () => {
         typeDispatch({type: "calculate raw wpm", payload: initialTime - time})
         typeDispatch({ type: "calculate wpm" })
         if (key === originalPrompt[substring.length]) typeDispatch({ type: "correct keypress" });
+        console.log(originalPrompt[substring.length], key)
         typeDispatch({type: "calculate accuracy"})
         
 
@@ -81,17 +80,17 @@ const Home = () => {
     <section className={styles.results_section}>
       <div className={styles.results__main}>
         <span className={styles.results__result}>
-          <p className={styles.results__title}>wpm { wpm > highestWPM && <span className={styles.crown}><RiVipCrownFill/></span>}</p>
+          <p className={styles.results__title}>wpm</p>
           <p className={styles.results__data}>{Math.floor(wpm)}</p>
         </span>
         <span className={styles.results__result}>
-          <p className={styles.results__title}>acc { accuracy > highestAccuracy && <span className={styles.crown}><RiVipCrownFill/></span>}</p>
+          <p className={styles.results__title}>acc</p>
           <p className={styles.results__data}>{Math.floor(accuracy * 100)}%</p>
         </span>
       </div>
       <div className={styles.results__secondary}>
         <span className={styles.results__result}>
-          <p className={styles.results__title}>raw { rawWPM > highestRawWPM && <span className={styles.crown}><RiVipCrownFill/></span>}</p>
+          <p className={styles.results__title}>raw</p>
           <p className={styles.results__data}>{Math.floor(rawWPM)}</p>
         </span>
         <span className={styles.results__result}>

@@ -1,8 +1,10 @@
-import "./global.css";
+import "../styles/global.css";
+import Head from "next/head";
+import { AppProps } from "next/app";
 
-const RootLayout = ({children}: {children: React.ReactNode}) => {
-  return <html>
-    <head>
+const App = ({Component, pageProps}: AppProps) => {
+  return <>
+    <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />  
 		  <meta name="description" content="Practice typing in modern programming languages."/>
       <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
@@ -10,9 +12,9 @@ const RootLayout = ({children}: {children: React.ReactNode}) => {
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
       <link rel="manifest" href="/site.webmanifest"/>
       <title>Ducktype</title>
-    </head>
-   <body>{children}</body>
-  </html>
+    </Head>
+    <Component {...pageProps} />
+  </>
 }
 
-export default RootLayout;
+export default App;

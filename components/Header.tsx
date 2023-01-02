@@ -1,6 +1,6 @@
 import { GiDuck } from "react-icons/gi";
 
-import styles from "./header.module.css";
+import styles from "../styles/header.module.css";
 
 const Header = () => {
   return <header className={styles.container}>

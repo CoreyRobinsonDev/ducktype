@@ -5,9 +5,6 @@ export type TypeState = {
   wpm: number,
   rawWPM: number,
   accuracy: number
-  highestWPM: number,
-  highestRawWPM: number,
-  highestAccuracy: number,
 }
 
 export type TimeState = {

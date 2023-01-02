@@ -6,9 +6,6 @@ export const typeState: TypeState = {
   wpm: 0,
   rawWPM: 0,
   accuracy: 0,
-  highestWPM: typeof window !== "undefined" ? localStorage.getItem("wpm") ? JSON.parse(localStorage.getItem("wpm") ?? "") : 0 : 0,
-  highestRawWPM: typeof window !== "undefined" ? localStorage.getItem("rawWPM") ? JSON.parse(localStorage.getItem("rawWPM") ?? "") : 0 : 0,
-  highestAccuracy: typeof window !== "undefined" ? localStorage.getItem("accuracy") ? JSON.parse(localStorage.getItem("accuracy") ?? "") : 0 : 0
 }
 
 export const timeState: TimeState = {
@@ -26,17 +23,12 @@ export const textState: TextState = {
 
 export const typeReducer = (state: TypeState, {type, payload}: Action): TypeState => {
   switch (type) {
-    case "keypress": return { ...state, keysPressed: state.keysPressed++ };
-    case "correct keypress": return { ...state, correctKeysPressed: state.correctKeysPressed++ };
+    case "keypress": return { ...state, keysPressed: state.keysPressed + 1 };
+    case "correct keypress": return { ...state, correctKeysPressed: state.correctKeysPressed + 1 };
     case "calculate accuracy": return { ...state, accuracy: state.correctKeysPressed / state.keysPressed };
     case "calculate raw wpm": return { ...state, rawWPM: (state.keysPressed / 5) / (payload / 60) };
     case "calculate wpm": return { ...state, wpm: state.rawWPM * state.accuracy };
-    case "reset": 
-      if (state.wpm > state.highestWPM) localStorage.setItem("wpm", JSON.stringify(state.wpm));
-      if (state.rawWPM > state.highestRawWPM) localStorage.setItem("rawWPM", JSON.stringify(state.rawWPM));
-      if (state.accuracy > state.highestAccuracy) localStorage.setItem("accuracy", JSON.stringify(state.accuracy));
-
-      return {...typeState}
+    case "reset": return { ...typeState };
     default: return state;
   }
 }
@@ -45,9 +37,9 @@ export const timeReducer = (state: TimeState, {type, payload}: Action): TimeStat
   switch (type) {
     case "start timer": return { ...state, hasStarted: true };
     case "stop timer": return { ...state, hasStarted: false };
-    case "decrement": return { ...state, time: state.time-- };
+    case "decrement": return { ...state, time: state.time - 1 };
     case "set time": return { ...state, time: payload, initialTime: payload };
-    case "reset": return timeState;
+    case "reset": return {...timeState};
     default: return state;
   } 
 }
@@ -66,7 +58,7 @@ export const textReducer = (state: TextState, { type, payload }: Action): TextSt
       substring: state.substring.slice(0, state.substring.length - 1),
       prompt: state.originalPrompt.slice(state.substring.length - 1)
     }
-    case "reset": return textState;
+    case "reset": return {...textState};
     default: return state;
   }
 }
