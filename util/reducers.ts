@@ -1,4 +1,16 @@
 import type { TypeState, TimeState, TextState, Action } from "../util/types";
+import { promptList } from "./prompts";
+
+const selectRandomPrompt = () => {
+  const keyIndex = Math.floor(Math.random() * Object.keys(promptList).length);
+  const key = Object.keys(promptList)[keyIndex];
+  // @ts-ignore
+  const prompt = promptList[key][Math.floor(Math.random() * promptList[key].length)];
+
+  return prompt;
+}
+
+const randomPrompt = selectRandomPrompt();
 
 export const typeState: TypeState = {
   keysPressed: 0,
@@ -17,16 +29,22 @@ export const timeState: TimeState = {
 export const textState: TextState = {
   value: "",
   substring: "",
-  originalPrompt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer erat tortor, accumsan eu nibh quis, tempus pellentesque justo. Donec sed nibh tortor. Nulla rutrum dui lectus, id tempor dui posuere pellentesque. Cras quis aliquet lorem. Integer accumsan augue a tellus condimentum tristique. Aenean sed laoreet turpis. Proin vitae quam porttitor, rhoncus massa eget, condimentum ipsum.",
-  prompt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer erat tortor, accumsan eu nibh quis, tempus pellentesque justo. Donec sed nibh tortor. Nulla rutrum dui lectus, id tempor dui posuere pellentesque. Cras quis aliquet lorem. Integer accumsan augue a tellus condimentum tristique. Aenean sed laoreet turpis. Proin vitae quam porttitor, rhoncus massa eget, condimentum ipsum."
+  originalPrompt: randomPrompt,
+  prompt: randomPrompt
 }
 
-export const typeReducer = (state: TypeState, {type, payload}: Action): TypeState => {
+export const typeReducer = (state: TypeState, { type, payload }: Action): TypeState => {
+  const wordLength = 5;
+  const minute = 60;
+  const seconds = payload;
+
   switch (type) {
     case "keypress": return { ...state, keysPressed: state.keysPressed + 1 };
     case "correct keypress": return { ...state, correctKeysPressed: state.correctKeysPressed + 1 };
     case "calculate accuracy": return { ...state, accuracy: state.correctKeysPressed / state.keysPressed };
-    case "calculate raw wpm": return { ...state, rawWPM: (state.keysPressed / 5) / (payload / 60) };
+    case "calculate raw wpm":
+      if (((state.keysPressed / wordLength) / (seconds / minute)) === Infinity) return state;
+      return { ...state, rawWPM: (state.keysPressed / wordLength) / (seconds / minute) };
     case "calculate wpm": return { ...state, wpm: state.rawWPM * state.accuracy };
     case "reset": return { ...typeState };
     default: return state;
@@ -57,6 +75,11 @@ export const textReducer = (state: TextState, { type, payload }: Action): TextSt
       value: state.value.slice(0, state.value.length - 1),
       substring: state.substring.slice(0, state.substring.length - 1),
       prompt: state.originalPrompt.slice(state.substring.length - 1)
+    }
+    case "switch prompt": return {
+      ...state,
+      originalPrompt: payload,
+      prompt: payload
     }
     case "reset": return {...textState};
     default: return state;

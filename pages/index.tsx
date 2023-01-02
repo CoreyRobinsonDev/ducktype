@@ -4,12 +4,14 @@ import { BiTimeFive } from "react-icons/bi";
 import styles from "../styles/home.module.css";
 import Header from "../components/Header";
 import { typeState, timeState, textState, typeReducer, timeReducer, textReducer } from "../util/reducers";
+import { promptList } from "../util/prompts";
 
 const Home = () => {
   const [{keysPressed, correctKeysPressed, wpm, rawWPM, accuracy }, typeDispatch] = useReducer(typeReducer, typeState);
   const [{initialTime, time, hasStarted}, timeDispatch] = useReducer(timeReducer, timeState)
   const [{ value, substring, originalPrompt, prompt }, textDispatch] = useReducer(textReducer, textState);
   const [animation, setAnimation] = useState("running");
+  const [isFinished, setIsFinished] = useState(false);
 
   useEffect(() => {
     let interval: NodeJS.Timer;
@@ -22,15 +24,14 @@ const Home = () => {
       typeDispatch({type: "calculate accuracy"})
       typeDispatch({type: "calculate raw wpm", payload: initialTime})
       typeDispatch({type: "calculate wpm" })
+      setIsFinished(true);
     }
       
     return () => clearInterval(interval);
   }, [time, hasStarted, initialTime])
 
   const handleKeyDown = (e: any) => {
-    const key = e.key;
-
-    switch (key) {
+    switch (e.key) {
       case "F5":
       case "F11":
       case "Tab":
@@ -44,13 +45,14 @@ const Home = () => {
         typeDispatch({type: "calculate accuracy"})
         typeDispatch({type: "calculate raw wpm", payload: initialTime - time})
         break;
+      case "Enter":
+        e.key = " ";
       default:
-        textDispatch({ type: "add character", payload: key });
+        textDispatch({ type: "add character", payload: e.key });
         typeDispatch({type: "keypress"})
         typeDispatch({type: "calculate raw wpm", payload: initialTime - time})
         typeDispatch({ type: "calculate wpm" })
-        if (key === originalPrompt[substring.length]) typeDispatch({ type: "correct keypress" });
-        console.log(originalPrompt[substring.length], key)
+        if (e.key === originalPrompt[substring.length]) typeDispatch({ type: "correct keypress" });
         typeDispatch({type: "calculate accuracy"})
         
 
@@ -63,12 +65,14 @@ const Home = () => {
     timeDispatch({ type: "reset" });
     typeDispatch({ type: "reset" });
     setAnimation("running");
+    setIsFinished(false);
   }
 
 
   return <main className={styles.container}>
     <span className={styles.menu}>
       <Header/>
+      <button onClick={() => textDispatch({type: "switch prompt", payload: promptList.html[0]})}>HTML</button>
       <ul className={styles.time_list}>
         <li className={styles.time_list__icon}><BiTimeFive/></li>
         <li><button className={`${styles.time_list_item} ${initialTime === 15 && styles.selected}`} onClick={() => {reset();timeDispatch({type: "set time", payload: 15}) } }>15</button></li>
@@ -108,7 +112,7 @@ const Home = () => {
       </div>
     </section>
     <p className={styles.time} style={{opacity: hasStarted ? 100 : 0}}>{time}</p>
-    <section className={styles.section}>
+    <section className={styles.section} data-isFinished={isFinished}>
       <input className={styles.input} type="text"
         onChange={(e) => e.target.value = ""}
         onKeyDown={(e) => handleKeyDown(e)}
@@ -117,12 +121,12 @@ const Home = () => {
         disabled={time === 0}
         autoFocus />
 
-      <span className={styles.substring} data-animation={animation}>{
+      <pre className={styles.substring}>{
         substring
             .split("")
             .map((letter, index) => <span key={index} className={`${styles.substring__letter} ${value[index] !== originalPrompt[index] ? styles.error : ""}`}>{letter}</span>)
-      }</span>
-      <span className={styles.prompt}>{ prompt }</span>
+      }</pre>
+      <pre className={styles.prompt} data-animation={animation}>{ prompt }</pre>
     </section>
   </main>
 }
