@@ -1,4 +1,3 @@
-"use client"
 import type { TypeState, TimeState, TextState, Action } from "../util/types";
 
 export const typeState: TypeState = {
@@ -7,9 +6,9 @@ export const typeState: TypeState = {
   wpm: 0,
   rawWPM: 0,
   accuracy: 0,
-  highestWPM: localStorage.getItem("wpm") ? JSON.parse(localStorage.getItem("wpm") ?? "") : 0,
-  highestRawWPM: localStorage.getItem("rawWPM") ? JSON.parse(localStorage.getItem("rawWPM") ?? "") : 0,
-  highestAccuracy: localStorage.getItem("accuracy") ? JSON.parse(localStorage.getItem("accuracy") ?? "") : 0
+  highestWPM: typeof window !== "undefined" ? localStorage.getItem("wpm") ? JSON.parse(localStorage.getItem("wpm") ?? "") : 0 : 0,
+  highestRawWPM: typeof window !== "undefined" ? localStorage.getItem("rawWPM") ? JSON.parse(localStorage.getItem("rawWPM") ?? "") : 0 : 0,
+  highestAccuracy: typeof window !== "undefined" ? localStorage.getItem("accuracy") ? JSON.parse(localStorage.getItem("accuracy") ?? "") : 0 : 0
 }
 
 export const timeState: TimeState = {
