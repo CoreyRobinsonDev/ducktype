@@ -56,7 +56,6 @@ const Home = () => {
   }, [time, hasStarted, initialTime])
 
   const handleKeyDown = (e: any) => {
-    e.preventDefault();
 
     switch (e.key) {
       case "F5":
@@ -72,6 +71,7 @@ const Home = () => {
         typeDispatch({type: "calculate raw wpm", payload: initialTime - time})
         break;
       case "Tab":
+        e.preventDefault();
         e.key = " ";
         textDispatch({ type: "add character", payload: e.key });
       case "Enter":
