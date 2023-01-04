@@ -1,0 +1,20 @@
+.container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  background-color: #111;
+  padding: 2rem;
+}
+
+.text {
+  font-weight: 600;
+  transition: .3s ease-in;
+}
+
+.text > a:hover {
+  color: var(--main-color);
+}
