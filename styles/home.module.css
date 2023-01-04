@@ -53,12 +53,13 @@
 .section {
   position: relative;
   border-radius: 5px;
+  margin-bottom: 6rem;
 }
 
-.section[data-isFinished=false] {
+.section[data-isfinished=false] {
   border: 2px dashed var(--light-bg-color);
 }
-.section[data-isFinished=true] {
+.section[data-isfinished=true] {
   border: 2px solid var(--main-color);
 }
 

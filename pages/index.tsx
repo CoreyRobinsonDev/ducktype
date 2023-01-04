@@ -4,7 +4,8 @@ import { BiTimeFive } from "react-icons/bi";
 import styles from "../styles/home.module.css";
 import Header from "../components/Header";
 import { typeState, timeState, textState, typeReducer, timeReducer, textReducer } from "../util/reducers";
-import { promptList } from "../util/prompts";
+import { getRandomPrompt } from "../util/helper";
+import { useFocus } from "../util/hooks";
 
 const Home = () => {
   const [{keysPressed, correctKeysPressed, wpm, rawWPM, accuracy }, typeDispatch] = useReducer(typeReducer, typeState);
@@ -12,6 +13,28 @@ const Home = () => {
   const [{ value, substring, originalPrompt, prompt }, textDispatch] = useReducer(textReducer, textState);
   const [animation, setAnimation] = useState("running");
   const [isFinished, setIsFinished] = useState(false);
+  const [totalPromptLength, setTotalPromptLength] = useState(originalPrompt.length);
+  const [inputRef, setInputFocus] = useFocus();
+
+
+  useEffect(() => {
+    if (!hasStarted && initialTime === 0) {
+      textDispatch({ type: "switch prompt", payload: getRandomPrompt() });
+      timeDispatch({ type: "set time", payload: 60 });
+      // gives "This expression is not callable." error for what should be a callable expression
+      // @ts-ignore
+      setInputFocus();
+    }
+
+    if (substring.length === originalPrompt.length && hasStarted) {
+      textDispatch({ type: "reset" });
+      textDispatch({ type: "switch prompt", payload: getRandomPrompt() });
+    }
+  },[substring, originalPrompt, hasStarted, initialTime, setInputFocus])
+
+  useEffect(() => {
+    setTotalPromptLength(t => t + originalPrompt.length);
+  },[originalPrompt])
 
   useEffect(() => {
     let interval: NodeJS.Timer;
@@ -19,6 +42,8 @@ const Home = () => {
     if (hasStarted) {
       interval = setInterval(() => timeDispatch({type: "decrement"}), 1000);
     } 
+
+
     if (time <= 0) {
       timeDispatch({type: "stop timer"});
       typeDispatch({type: "calculate accuracy"})
@@ -31,10 +56,11 @@ const Home = () => {
   }, [time, hasStarted, initialTime])
 
   const handleKeyDown = (e: any) => {
+    e.preventDefault();
+
     switch (e.key) {
       case "F5":
       case "F11":
-      case "Tab":
       case "Alt":
       case "Control":
       case "Escape":
@@ -45,6 +71,9 @@ const Home = () => {
         typeDispatch({type: "calculate accuracy"})
         typeDispatch({type: "calculate raw wpm", payload: initialTime - time})
         break;
+      case "Tab":
+        e.key = " ";
+        textDispatch({ type: "add character", payload: e.key });
       case "Enter":
         e.key = " ";
       default:
@@ -60,19 +89,23 @@ const Home = () => {
     }
   }
    
-  const reset = () => {
+  const reset = (category = "any") => {
     textDispatch({ type: "reset" });
     timeDispatch({ type: "reset" });
     typeDispatch({ type: "reset" });
     setAnimation("running");
     setIsFinished(false);
+    textDispatch({ type: "switch prompt", payload: getRandomPrompt(category) });
+    setTotalPromptLength(0);
+    // @ts-ignore
+    setInputFocus();
   }
 
 
   return <main className={styles.container}>
     <span className={styles.menu}>
       <Header/>
-      <button onClick={() => textDispatch({type: "switch prompt", payload: promptList.html[0]})}>HTML</button>
+      <button onClick={() => reset("html")}>HTML</button>
       <ul className={styles.time_list}>
         <li className={styles.time_list__icon}><BiTimeFive/></li>
         <li><button className={`${styles.time_list_item} ${initialTime === 15 && styles.selected}`} onClick={() => {reset();timeDispatch({type: "set time", payload: 15}) } }>15</button></li>
@@ -99,7 +132,7 @@ const Home = () => {
         </span>
         <span className={styles.results__result}>
           <p className={styles.results__title}>characters</p>
-          <p className={styles.results__data}>{correctKeysPressed} / {keysPressed} / { originalPrompt.length }</p>
+          <p className={styles.results__data}>{correctKeysPressed} / {keysPressed} / {totalPromptLength}</p>
         </span>
         <span className={styles.results__result}>
           <p className={styles.results__title}>consistency</p>
@@ -112,8 +145,9 @@ const Home = () => {
       </div>
     </section>
     <p className={styles.time} style={{opacity: hasStarted ? 100 : 0}}>{time}</p>
-    <section className={styles.section} data-isFinished={isFinished}>
+    <section className={styles.section} data-isfinished={isFinished}>
       <input className={styles.input} type="text"
+        ref={inputRef}
         onChange={(e) => e.target.value = ""}
         onKeyDown={(e) => handleKeyDown(e)}
         onFocus={() => setAnimation("none")}

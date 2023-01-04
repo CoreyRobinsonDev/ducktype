@@ -17,7 +17,7 @@ export type TextState = {
   value: string,
   originalPrompt: string,
   prompt: string,
-  substring: string
+  substring: string,
 }
 
 export type Action = {

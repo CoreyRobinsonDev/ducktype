@@ -1,16 +1,5 @@
 import type { TypeState, TimeState, TextState, Action } from "../util/types";
-import { promptList } from "./prompts";
 
-const selectRandomPrompt = () => {
-  const keyIndex = Math.floor(Math.random() * Object.keys(promptList).length);
-  const key = Object.keys(promptList)[keyIndex];
-  // @ts-ignore
-  const prompt = promptList[key][Math.floor(Math.random() * promptList[key].length)];
-
-  return prompt;
-}
-
-const randomPrompt = selectRandomPrompt();
 
 export const typeState: TypeState = {
   keysPressed: 0,
@@ -21,7 +10,7 @@ export const typeState: TypeState = {
 }
 
 export const timeState: TimeState = {
-  initialTime: 60,
+  initialTime: 0,
   time: 60,
   hasStarted: false
 }
@@ -29,8 +18,8 @@ export const timeState: TimeState = {
 export const textState: TextState = {
   value: "",
   substring: "",
-  originalPrompt: randomPrompt,
-  prompt: randomPrompt
+  originalPrompt: "",
+  prompt: "",
 }
 
 export const typeReducer = (state: TypeState, { type, payload }: Action): TypeState => {
