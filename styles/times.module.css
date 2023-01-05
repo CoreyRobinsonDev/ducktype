@@ -1,0 +1,29 @@
+.time_list {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+}
+
+.time_list__icon {
+  position: absolute;
+  top: 2px;
+  left: -3ch;
+}
+
+.time_list_item {
+  color: var(--text-color);
+  font-weight: bold;
+  transition: .3s ease-out;
+}
+
+.time_list_item.selected {
+  color: var(--main-color);
+}
+
+.time {
+  color: var(--main-color);
+  font-size: 2.2rem;
+  font-weight: bold;
+  padding: .3rem;
+  transition: .3s ease-in;
+}
