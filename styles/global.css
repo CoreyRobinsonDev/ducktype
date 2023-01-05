@@ -19,6 +19,7 @@ body {
 :root {
   --bg-color: #202020;
 	--light-bg-color: #252525;
+	--dark-bg-color: #111;
   --text-color: #fae1c3;
   --sub-color: #847869;
   --main-color: #49891A;
