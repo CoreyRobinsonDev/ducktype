@@ -2,7 +2,7 @@ import { useAppSelector } from "../util/hooks";
 import styles from "../styles/results.module.css";
 
 export default function Results() {
-  const { wpm, rawWPM, accuracy, correctKeysPressed, keysPressed } = useAppSelector(state => state.duck.type);
+  const { wpm, rawWPM, accuracy, correctKeysPressed, keysPressed, highestRawWPM, highestWPM } = useAppSelector(state => state.duck.type);
   const { initialTime} = useAppSelector(state => state.duck.time);
   const { originalPrompt } = useAppSelector(state => state.duck.text);
 
@@ -18,6 +18,14 @@ export default function Results() {
         </span>
       </div>
       <div className={styles.results__secondary}>
+        <span className={styles.results__result}>
+          <p className={styles.results__title}>highest wpm</p>
+          <p className={styles.results__data}>{highestWPM}</p>
+        </span>
+        <span className={styles.results__result}>
+          <p className={styles.results__title}>highest raw wpm</p>
+          <p className={styles.results__data}>{highestRawWPM}</p>
+        </span>
         <span className={styles.results__result}>
           <p className={styles.results__title}>raw</p>
           <p className={styles.results__data}>{Math.floor(rawWPM)}</p>

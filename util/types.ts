@@ -4,7 +4,9 @@ export type TypeState = {
   correctKeysPressed: number,
   wpm: number,
   rawWPM: number,
-  accuracy: number
+  accuracy: number,
+  highestWPM: number,
+  highestRawWPM: number
 }
 
 export type TimeState = {

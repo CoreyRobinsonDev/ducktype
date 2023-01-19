@@ -1,5 +1,6 @@
 import { AppProps } from "next/app";
 import { Provider } from "react-redux";
+import {useState, useEffect} from "react";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, child, get } from "firebase/database";
 
@@ -33,12 +34,25 @@ get(child(dbRef, "prompts")).then((snapshot) => {
   console.error(err)
 })
 
-const App = ({Component, pageProps}: AppProps) => {
-  return <Provider store={store}>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  </Provider>
+
+function App({ Component, pageProps }: AppProps) {
+  const [showChild, setShowChild] = useState<boolean>()
+
+  // skipping hydration step to aviod hydration failed error
+  useEffect(() => {
+    setShowChild(true)
+  },[])
+
+  if (!showChild) return null;
+  if (typeof window === "undefined") {
+    return <></>;
+  } else {
+    return <Provider store={store}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Provider >
+  }
 }
 
 export default App;
