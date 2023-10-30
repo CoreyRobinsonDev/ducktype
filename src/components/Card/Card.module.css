@@ -1,0 +1,9 @@
+.section {
+    flex: 1 1 350px;
+    background-color: var(--secondary-container);
+    color: var(--on-secondary-container);
+    border-radius: var(--border);
+    height: 200px;
+    padding: 2rem;
+    box-shadow: var(--shadow)
+}

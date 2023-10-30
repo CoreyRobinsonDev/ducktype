@@ -1,0 +1,20 @@
+.section {
+    position: relative;
+    color: var(--text);
+    font-size: 2rem;
+    line-height: 2.5rem;
+    border: 1px var(--outline) solid;
+    border-radius: var(--border);
+    margin-bottom: 2rem;
+    height: 60rem;
+}
+
+
+.section > textarea {
+    position: absolute;
+    top: 0;
+    background-color: transparent;
+    padding: 2.5rem calc(6rem + 1ch);
+    height: 100%;
+    resize: none;
+}
