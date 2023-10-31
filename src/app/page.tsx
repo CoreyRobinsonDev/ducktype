@@ -10,9 +10,10 @@ export default function Home() {
         <main className={styles.main}>
             <Textbox/>
             <div className={styles.card_container}>
-                <Card/>
-                <Card/>
-                <Card/>
+                <Card>Info1</Card>
+                <Card>Info2</Card>
+                <Card>Info3</Card>
+                <Card>Info4</Card>
             </div>
         </main> 
     </>

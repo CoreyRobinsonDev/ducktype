@@ -1,7 +1,7 @@
 import styles from "./Card.module.css";
 
-export default function Card() {
+export default function Card({ children }: { children : React.ReactNode }) {
     return <section className={styles.section}>
-        <p>Info</p>
+        <p>{children}</p>
     </section>
 }

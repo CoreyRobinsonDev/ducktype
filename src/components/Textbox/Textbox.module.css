@@ -6,15 +6,32 @@
     border: 1px var(--outline) solid;
     border-radius: var(--border);
     margin-bottom: 2rem;
-    height: 60rem;
+    width: 100%;
+    max-width: var(--max-width);
 }
 
+.section > pre {
+    user-select: none;
+    opacity: 50%;
+    padding: 4rem;
+}
+
+.letter {
+
+}
+
+.error_letter {
+
+}
 
 .section > textarea {
     position: absolute;
     top: 0;
     background-color: transparent;
-    padding: 2.5rem calc(6rem + 1ch);
+    color: transparent;
+    caret-color: var(--text);
+    padding: 4rem;
     height: 100%;
     resize: none;
 }
+
