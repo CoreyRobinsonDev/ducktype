@@ -2,13 +2,16 @@ import styles from './page.module.css'
 import Card from '@/components/Card/Card'
 import Header from '@/components/Header/Header'
 import Textbox from '@/components/Textbox/Textbox'
+import { textTS } from '@/components/Textbox/text'
+import Toolbar from '@/components/Toolbar/Toolbar'
 
 
 export default function Home() {
     return <>
         <Header/>
         <main className={styles.main}>
-            <Textbox/>
+            <Toolbar/>
+            <Textbox idx={Math.floor(Math.random() * textTS.length)} />
             <div className={styles.card_container}>
                 <Card>Info1</Card>
                 <Card>Info2</Card>

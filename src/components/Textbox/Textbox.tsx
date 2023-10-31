@@ -1,21 +1,52 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { useState, useEffect } from "react";
+
 import styles from "./Textbox.module.css";
-import { text } from "./text";
+import { textTS } from "./text";
 
-export default function Textbox() {
-    const [input, changeInput] = useState("");
-    const [letterClass, changeLetterClass] = useState(styles.letter); 
-    const randNum = Math.floor(Math.random() * text.length);
+export default function Textbox({idx}: {idx:number}) {
+    const [input, setInput] = useState("");
 
-    const handleChange = (e: ChangeEvent<HTMLTextAreaElement> ) => {
-        changeInput(e.target.value);
-    }
+    useEffect(() => {
+        const keyDownHandler = (e: KeyboardEvent) => {
+            switch (e.key) {
+                case "Tab": {
+                    e.preventDefault();
+                    if (textTS[idx][input.length] === "\t")
+                        setInput(i => i + "\t");
+                    break;
+                }
+                case "Enter": {
+                    e.preventDefault();
+                    if (textTS[idx][input.length] === "\n")
+                        setInput(i => i + "\n");
+                    break;
+                }
+                default: {
+                    if (textTS[idx].length === input.length || 
+                        textTS[idx][input.length] === "\n" || 
+                        textTS[idx][input.length] === "\t")
+                        e.preventDefault();
+                }
+            }
+        }
+
+        document.addEventListener("keydown", keyDownHandler);
+
+        return () => document.removeEventListener("keydown", keyDownHandler);
+    }, [input])
 
     return <section className={styles.section}>
         <pre>
-        {text[randNum].split("").map((letter) => <span className={letterClass}>{letter}</span>)}
+            { textTS[idx].split("").map((letter: string, i: number) => {
+                return <span className={
+                    textTS[idx][i] === input[i]
+                    ? styles.letter_correct
+                    : input[i] === undefined ? styles.letter : styles.letter_error
+                }>{letter}</span>})
+            }
         </pre>
-        <textarea onChange={(e) => handleChange(e)} value={input} />
+        <textarea onChange={(e) => setInput(e.target.value)} value={input} />
+        <div className={styles.side}></div>
     </section>
 }

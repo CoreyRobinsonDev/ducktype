@@ -1,27 +1,32 @@
 .section {
+    display: flex;
+    justify-content: space-between;
     position: relative;
     color: var(--text);
     font-size: 2rem;
     line-height: 2.5rem;
-    border: 1px var(--outline) solid;
+    border: 1px var(--primary-container) solid;
     border-radius: var(--border);
-    margin-bottom: 2rem;
     width: 100%;
     max-width: var(--max-width);
 }
 
 .section > pre {
     user-select: none;
-    opacity: 50%;
     padding: 4rem;
 }
 
 .letter {
-
+    opacity: 50%;
 }
 
-.error_letter {
+.letter_correct {
+    opacity: 100%;
+}
 
+.letter_error {
+    opacity: 100%;
+    color: var(--error-container);
 }
 
 .section > textarea {
@@ -35,3 +40,15 @@
     resize: none;
 }
 
+.section > textarea::-webkit-scrollbar {
+    display: none;
+}  
+
+.side {
+    background-color: var(--bg);
+    width: 1000px;
+    height: auto;
+    margin-right: 277px;
+    border-radius: var(--border);
+    box-shadow: 28rem 0 0 0 var(--primary-container);
+}
