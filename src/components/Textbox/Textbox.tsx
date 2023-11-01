@@ -23,9 +23,9 @@ export default function Textbox({idx}: {idx:number}) {
                     break;
                 }
                 default: {
-                    if (textTS[idx].length === input.length || 
+                    if ((textTS[idx].length === input.length || 
                         textTS[idx][input.length] === "\n" || 
-                        textTS[idx][input.length] === "\t")
+                        textTS[idx][input.length] === "\t") && e.key !== "Backspace")
                         e.preventDefault();
                 }
             }
@@ -34,7 +34,7 @@ export default function Textbox({idx}: {idx:number}) {
         document.addEventListener("keydown", keyDownHandler);
 
         return () => document.removeEventListener("keydown", keyDownHandler);
-    }, [input])
+    }, [input, idx])
 
     return <section className={styles.section}>
         <pre>
