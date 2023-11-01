@@ -46,7 +46,7 @@ export default function Textbox({idx}: {idx:number}) {
                 }>{letter}</span>})
             }
         </pre>
-        <textarea onChange={(e) => setInput(e.target.value)} value={input} />
+        <textarea spellCheck={false} onChange={(e) => setInput(e.target.value)} value={input} />
         <div className={styles.side}></div>
     </section>
 }

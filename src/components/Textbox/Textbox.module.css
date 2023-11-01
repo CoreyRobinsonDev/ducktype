@@ -2,13 +2,18 @@
     display: flex;
     justify-content: space-between;
     position: relative;
-    color: var(--text);
+    background-color: var(--on-surface);
+    color: var(--surface);
     font-size: 2rem;
     line-height: 2.5rem;
-    border: 1px var(--primary-container) solid;
+    border: 2px var(--tertiary-container) solid;
     border-radius: var(--border);
     width: 100%;
     max-width: var(--max-width);
+}
+
+.section > pre, .section textarea {
+    font-weight: 600;
 }
 
 .section > pre {
@@ -34,7 +39,7 @@
     top: 0;
     background-color: transparent;
     color: transparent;
-    caret-color: var(--text);
+    caret-color: var(--surface);
     padding: 4rem;
     height: 100%;
     resize: none;
@@ -45,10 +50,10 @@
 }  
 
 .side {
-    background-color: var(--bg);
+    background-color: var(--on-surface);
     width: 1000px;
     height: auto;
-    margin-right: 277px;
+    margin-right: 274px;
     border-radius: var(--border);
-    box-shadow: 28rem 0 0 0 var(--primary-container);
+    box-shadow: 28rem 0 0 0 var(--tertiary-container);
 }

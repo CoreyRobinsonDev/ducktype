@@ -7,7 +7,6 @@ import { textTS } from '@/components/Textbox/text'
 
 
 export default function Home() {
-
     return <>
         <Header/>
         <main className={styles.main}>
