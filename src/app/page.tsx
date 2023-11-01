@@ -4,6 +4,7 @@ import Header from '@/components/Header/Header'
 import Textbox from '@/components/Textbox/Textbox'
 import Toolbar from '@/components/Toolbar/Toolbar'
 import { textTS } from '@/components/Textbox/text'
+import Footer from '@/components/Footer/Footer'
 
 
 export default function Home() {
@@ -19,5 +20,6 @@ export default function Home() {
                 <Card>Info4</Card>
             </div>
         </main> 
+        <Footer/>
     </>
 }
