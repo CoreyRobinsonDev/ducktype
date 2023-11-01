@@ -2,11 +2,12 @@ import styles from './page.module.css'
 import Card from '@/components/Card/Card'
 import Header from '@/components/Header/Header'
 import Textbox from '@/components/Textbox/Textbox'
-import { textTS } from '@/components/Textbox/text'
 import Toolbar from '@/components/Toolbar/Toolbar'
+import { textTS } from '@/components/Textbox/text'
 
 
 export default function Home() {
+
     return <>
         <Header/>
         <main className={styles.main}>

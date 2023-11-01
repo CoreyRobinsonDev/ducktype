@@ -1,7 +1,7 @@
 .section {
     flex: 1 1 350px;
-    background-color: var(--tertiary-container);
-    color: var(--on-tertiary-container);
+    background-color: var(--on-surface);
+    color: var(--surface);
     border-radius: var(--border);
     height: 200px;
     padding: 2rem 4rem;
