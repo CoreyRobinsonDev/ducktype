@@ -1,0 +1,59 @@
+.section {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    background-color: var(--on-surface);
+    color: var(--surface);
+    font-size: 2rem;
+    line-height: 2.5rem;
+    border: 2px var(--tertiary-container) solid;
+    border-radius: var(--border);
+    width: 100%;
+    max-width: var(--max-width);
+}
+
+.section > pre, .section textarea {
+    font-weight: 600;
+}
+
+.section > pre {
+    user-select: none;
+    padding: 4rem;
+}
+
+.letter {
+    opacity: 50%;
+}
+
+.letter_correct {
+    opacity: 100%;
+}
+
+.letter_error {
+    opacity: 100%;
+    color: var(--error-container);
+}
+
+.section > textarea {
+    position: absolute;
+    top: 0;
+    background-color: transparent;
+    color: transparent;
+    caret-color: var(--surface);
+    padding: 4rem;
+    height: 100%;
+    resize: none;
+}
+
+.section > textarea::-webkit-scrollbar {
+    display: none;
+}  
+
+.side {
+    background-color: var(--on-surface);
+    width: 1000px;
+    height: auto;
+    margin-right: 274px;
+    border-radius: var(--border);
+    box-shadow: 28rem 0 0 0 var(--tertiary-container);
+}

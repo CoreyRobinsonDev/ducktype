@@ -1,0 +1,17 @@
+.section {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    background-color: var(--on-surface);
+    max-width: var(--max-width);
+    border-radius: var(--border);
+    padding: 2rem 4rem;
+    font-size: 3rem;
+    color: var(--surface);
+}
+
+.section *:hover {
+    cursor: pointer;
+}

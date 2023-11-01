@@ -1,0 +1,9 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    color: var(--text);
+}
+
+.link:hover {
+    color: var(--primary);
+}
