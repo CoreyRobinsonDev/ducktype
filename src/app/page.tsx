@@ -3,7 +3,6 @@ import Card from '@/components/Card/Card'
 import Header from '@/components/Header/Header'
 import Textbox from '@/components/Textbox/Textbox'
 import Toolbar from '@/components/Toolbar/Toolbar'
-import { textTS } from '@/components/Textbox/text'
 import Footer from '@/components/Footer/Footer'
 
 
@@ -12,7 +11,7 @@ export default function Home() {
         <Header/>
         <main className={styles.main}>
             <Toolbar/>
-            <Textbox idx={Math.floor(Math.random() * textTS.length)} />
+            <Textbox />
             <div className={styles.card_container}>
                 <Card>Info1</Card>
                 <Card>Info2</Card>
