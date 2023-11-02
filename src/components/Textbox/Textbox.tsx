@@ -7,9 +7,10 @@ import { textTS } from "./text";
 export default function Textbox() {
     const [input, setInput] = useState("");
     const [idx, setIdx] = useState(Math.floor(Math.random() * textTS.length));
-    const [totalCh, setTotalCh] = useState(0);
+    const [typedCh, setTypedCh] = useState(0);
     const [hasStart, setHasStart] = useState(false);
-    const [time, setTime] = useState(0);
+    const [maxTime, setMaxTime] = useState(60);
+    const [time, setTime] = useState(maxTime);
 
     useEffect(() => {
         const keyDownHandler = (e: KeyboardEvent) => {
@@ -31,8 +32,8 @@ export default function Textbox() {
                         textTS[idx][input.length] === "\n" || 
                         textTS[idx][input.length] === "\t") && e.key !== "Backspace") {
                         e.preventDefault();
-                    } else if (e.key !== " " && e.key !== "Backspace") {
-                        setTotalCh(ch => ch += 1);
+                    } else if (e.key !== " " && e.key !== "Backspace" && time > 0) {
+                        setTypedCh(ch => ch += 1);
                     }
                 }
             }
@@ -44,12 +45,13 @@ export default function Textbox() {
 
     useEffect(() => {
         const intervalID = setInterval(() => {
-            if (hasStart)
-                setTime(t => t += 1);
+            if (hasStart && time > 0)
+                setTime(t => t -= 1);
         }, 1000)
 
         return () => clearInterval(intervalID);
-    }, [hasStart])
+    }, [hasStart, time])
+
 
     return <section className={styles.section}>
         <pre>
@@ -70,8 +72,7 @@ export default function Textbox() {
         onBlur={() => setHasStart(false)}
         onChange={(e) => setInput(e.target.value)} 
         value={input} />
-        {hasStart ? "true" : "false"}
-        {time}
         <div className={styles.side}></div>
+        <span className={styles.time}>{time}</span>
     </section>
 }
