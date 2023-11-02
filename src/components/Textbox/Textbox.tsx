@@ -39,11 +39,14 @@ export default function Textbox({idx}: {idx:number}) {
     return <section className={styles.section}>
         <pre>
             { textTS[idx].split("").map((letter: string, i: number) => {
-                return <span className={
-                    textTS[idx][i] === input[i]
+                return <span className={`
+                    ${textTS[idx][i] === input[i]
                     ? styles.letter_correct
-                    : input[i] === undefined ? styles.letter : styles.letter_error
-                }>{letter}</span>})
+                    : input[i] === undefined ? styles.letter : styles.letter_error} 
+                    ${textTS[idx][i] === " " && input[i] !== " " && input[i] !== undefined
+                    ? styles.space_error
+                    : ""} 
+                `}>{letter}</span>})
             }
         </pre>
         <textarea spellCheck={false} onChange={(e) => setInput(e.target.value)} value={input} />

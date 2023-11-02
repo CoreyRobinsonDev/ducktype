@@ -14,6 +14,8 @@
 
 .section > pre, .section textarea {
     font-weight: 600;
+    letter-spacing: .04rem;
+    --transition: all 100ms linear;
 }
 
 .section > pre {
@@ -23,15 +25,23 @@
 
 .letter {
     opacity: 50%;
+    transition: var(--transition);
 }
 
 .letter_correct {
     opacity: 100%;
+    transition: var(--transition);
 }
 
 .letter_error {
     opacity: 100%;
     color: var(--error-container);
+    transition: var(--transition);
+}
+
+.space_error {
+    box-shadow: 0 3px 0 0 var(--error-container);
+    transition: var(--transition);
 }
 
 .section > textarea {
@@ -39,7 +49,6 @@
     top: 0;
     background-color: transparent;
     color: transparent;
-    caret-color: var(--surface);
     padding: 4rem;
     height: 100%;
     resize: none;
