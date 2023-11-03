@@ -2,7 +2,6 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 2rem;
     width: 100%;
     background-color: var(--on-surface);
     max-width: var(--max-width);
@@ -10,8 +9,29 @@
     padding: 2rem 4rem;
     font-size: 3rem;
     color: var(--surface);
+    box-shadow: var(--shadow);
 }
 
 .section *:hover {
     cursor: pointer;
 }
+
+.list, .mobile_list {
+    display: flex;
+    gap: 1rem;
+}
+
+.list li:hover, .mobile_list:hover {
+    color: var(--primary-container);
+}
+
+.list {
+    font-size: 2rem;
+    padding-right: 2rem;
+}
+
+.mobile_list {
+    display: none;
+}
+
+

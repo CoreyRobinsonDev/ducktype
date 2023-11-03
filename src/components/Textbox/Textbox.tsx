@@ -1,10 +1,12 @@
-"use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import styles from "./Textbox.module.css";
-import { textTS } from "./text";
+import { text } from "@/helpers/text";
+import { AppState, AppDispatch } from "@/helpers/Context";
 
 export default function Textbox() {
+    const state = useContext(AppState);
+    const dispatch = useContext(AppDispatch);
     const [input, setInput] = useState("");
     const [idx, setIdx] = useState(Math.floor(Math.random() * textTS.length));
     const [typedCh, setTypedCh] = useState(0);
@@ -12,11 +14,13 @@ export default function Textbox() {
     const [maxTime, setMaxTime] = useState(60);
     const [time, setTime] = useState(maxTime);
 
+
     useEffect(() => {
         const keyDownHandler = (e: KeyboardEvent) => {
             switch (e.key) {
                 case "Tab": {
                     e.preventDefault();
+                    dispatch({type:"swap_language", payload: "java"})
                     if (textTS[idx][input.length] === "\t")
                         setInput(i => i + "\t");
                     break;
@@ -72,6 +76,7 @@ export default function Textbox() {
         onBlur={() => setHasStart(false)}
         onChange={(e) => setInput(e.target.value)} 
         value={input} />
+        {state.language}
         <div className={styles.side}></div>
         <span className={styles.time}>{time}</span>
     </section>

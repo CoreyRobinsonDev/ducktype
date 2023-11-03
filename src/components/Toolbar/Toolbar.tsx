@@ -1,3 +1,6 @@
+import { useContext } from "react";
+
+import { AppDispatch } from "@/helpers/Context";
 import { MdMoreVert } from "react-icons/md";
 import { 
     TbFileTypeHtml, 
@@ -5,22 +8,29 @@ import {
     TbFileTypeCss, 
     TbFileTypeTs, 
     TbFileTypeSql,
-    TbFileTypeJsx,
-    TbFileTypeTsx
     } from "react-icons/tb";
 
 import styles from "./Toolbar.module.css";
 
 
 export default function Toolbar() {
+    const dispatch = useContext(AppDispatch);
+
     return <section className={styles.section}>
-        <TbFileTypeHtml title="HTML" />
-        <TbFileTypeCss title="CSS" />
-        <TbFileTypeJs title="Javascript" />
-        <TbFileTypeTs title="Typescript" />
-        <TbFileTypeJsx title="jsx" />
-        <TbFileTypeTsx title="tsx" />
-        <TbFileTypeSql title="SQL" />
+        <ul className={styles.list}>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>TypeScript</li>
+            <li>SQL</li>
+        </ul>
+        <ul className={styles.mobile_list}>
+            <TbFileTypeHtml title="HTML" />
+            <TbFileTypeCss title="CSS" />
+            <TbFileTypeJs title="JavaScript" />
+            <TbFileTypeTs title="TypeScript" />
+            <TbFileTypeSql title="SQL" />
+        </ul>
         <MdMoreVert />
     </section>
 }
