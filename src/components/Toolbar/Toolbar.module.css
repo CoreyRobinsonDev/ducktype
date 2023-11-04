@@ -1,14 +1,14 @@
 .section {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     background-color: var(--on-surface);
     max-width: var(--max-width);
     border-radius: var(--border);
-    padding: 2rem 4rem;
-    font-size: 3rem;
+    padding: 2rem;
     color: var(--surface);
+    font-weight: bold;
     box-shadow: var(--shadow);
 }
 
@@ -16,17 +16,17 @@
     cursor: pointer;
 }
 
-.list, .mobile_list {
+.list, .mobile_list, .times {
     display: flex;
     gap: 1rem;
+    font-size: 2rem;
 }
 
-.list li:hover, .mobile_list:hover {
+.list li:hover, .mobile_list *:hover, .times li:hover {
     color: var(--primary-container);
 }
 
 .list {
-    font-size: 2rem;
     padding-right: 2rem;
 }
 
