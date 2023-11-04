@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import styles from "./Textbox.module.css";
 import { AppState, AppDispatch } from "@/helpers/Context";
@@ -8,10 +9,13 @@ export default function Textbox() {
     const dispatch = useContext(AppDispatch);
     const [input, setInput] = useState("");
     const [hasStart, setHasStart] = useState(false);
+    const [parent] = useAutoAnimate();
 
     // timer
     useEffect(() => {
         if (hasStart) {
+            if (state.time === state.initialTime)
+                dispatch({type: "add_prompt"});
             const intervalID = setInterval(() => {
                 if (state.time > 0)
                     dispatch({type: "decrement_time"})
@@ -47,7 +51,9 @@ export default function Textbox() {
                         if (state.prompt[input.length] === e.key)
                             dispatch({type: "send_correct_character"});
                         dispatch({type: "type_character"});
+                        dispatch({type: "calc_accuracy"});
                         dispatch({type: "calc_cpm"});
+                        dispatch({type: "calc_wpm"});
                     }
                 }
             }
@@ -58,12 +64,16 @@ export default function Textbox() {
     }, [input, hasStart])
 
     // generate new prompt
-    if (input.length === state.prompt.length) {
-        setInput("");
-        dispatch({type: "gen_prompt"});
-    }
+    useEffect(() => {
+        if (input.length === state.prompt.length) {
+            setInput("");
+            dispatch({type: "gen_prompt"});
+            dispatch({type: "add_prompt"});
+        }
+    }, [input])
 
-    return <section className={styles.section}>
+
+    return <section ref={parent} className={styles.section}>
         <pre>
             { state.prompt.split("").map((letter: string, i: number) => {
                 return <span key={`letter-${i}`} className={`
