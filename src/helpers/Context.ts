@@ -2,7 +2,6 @@ import { createContext } from "react";
 import type { Dispatch } from "react";
 
 import { prompts } from "./prompts";
-import calcAverageCharPerWord from "./calcAverageCharPerWord";
 
 
 type PromptsKey = keyof typeof prompts;
@@ -79,3 +78,14 @@ export const AppState = createContext(initialState);
 export const AppDispatch = createContext<Dispatch<{type: Actions, payload?: any}>>(() => ({type: "", payload: ""}));
 
 
+function calcAverageCharPerWord(text: string[]): number {
+    const words = text
+        .join(" ")
+        .replaceAll("\t", " ")
+        .replaceAll("\n", " ")
+        .replaceAll(".", " ")
+        .split(" ")
+        .filter((word) => word !== "");
+
+    return words.join("").length / words.length;
+}
