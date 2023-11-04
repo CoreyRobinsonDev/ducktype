@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import { AppDispatch, AppState } from "@/helpers/Context";
 import { MdMoreVert } from "react-icons/md";
@@ -17,10 +16,9 @@ import styles from "./Toolbar.module.css";
 export default function Toolbar() {
     const state = useContext(AppState);
     const dispatch = useContext(AppDispatch);
-    const [parent] = useAutoAnimate();
 
 
-    return <section ref={parent} className={styles.section}>
+    return <section className={styles.section}>
         <ul className={styles.times}>
             <li onClick={() => dispatch({type: "set_time", payload: 10})}>10</li>
             <li onClick={() => dispatch({type: "set_time", payload: 30})}>30</li>
