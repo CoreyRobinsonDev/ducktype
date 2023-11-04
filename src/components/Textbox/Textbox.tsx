@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import styles from "./Textbox.module.css";
 import { AppState, AppDispatch } from "@/helpers/Context";
@@ -9,7 +8,6 @@ export default function Textbox() {
     const dispatch = useContext(AppDispatch);
     const [input, setInput] = useState("");
     const [hasStart, setHasStart] = useState(false);
-    const [parent] = useAutoAnimate();
 
     // timer
     useEffect(() => {
@@ -74,7 +72,7 @@ export default function Textbox() {
     }, [input])
 
 
-    return <section ref={parent} className={styles.section}>
+    return <section className={styles.section}>
         <pre>
             { state.prompt.split("").map((letter: string, i: number) => {
                 return <span key={`letter-${i}`} className={`
