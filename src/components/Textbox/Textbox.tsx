@@ -4,7 +4,6 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import styles from "./Textbox.module.css";
 import { AppState, AppDispatch } from "@/helpers/Context";
 
-// ???
 export default function Textbox() {
     const state = useContext(AppState);
     const dispatch = useContext(AppDispatch);
@@ -15,8 +14,9 @@ export default function Textbox() {
     // timer
     useEffect(() => {
         if (hasStart) {
-            if (state.time === state.initialTime)
+            if (state.time === state.initialTime) {
                 dispatch({type: "add_prompt"});
+            }
             const intervalID = setInterval(() => {
                 if (state.time > 0)
                     dispatch({type: "decrement_time"})
