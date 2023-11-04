@@ -23,6 +23,7 @@ export default function Textbox() {
     // process typing
     useEffect(() => {
         const keyDownHandler = (e: KeyboardEvent) => {
+        if (hasStart)
             switch (e.key) {
                 case "Tab": {
                     e.preventDefault();
@@ -42,8 +43,11 @@ export default function Textbox() {
                         e.key !== "Backspace") ||
                         state.time < 0) {
                         e.preventDefault();
-                    } else if (e.key !== " " && e.key !== "Backspace" && state.time > 0) {
-                        dispatch({type: "type_character"})
+                    } else if (e.key !== " " && e.key !== "Backspace" && e.key !== "Shift" && state.time > 0) {
+                        if (state.prompt[input.length] === e.key)
+                            dispatch({type: "send_correct_character"});
+                        dispatch({type: "type_character"});
+                        dispatch({type: "calc_cpm"});
                     }
                 }
             }
@@ -51,7 +55,7 @@ export default function Textbox() {
         document.addEventListener("keydown", keyDownHandler);
 
         return () => document.removeEventListener("keydown", keyDownHandler);
-    }, [input])
+    }, [input, hasStart])
 
     // generate new prompt
     if (input.length === state.prompt.length) {
@@ -62,7 +66,7 @@ export default function Textbox() {
     return <section className={styles.section}>
         <pre>
             { state.prompt.split("").map((letter: string, i: number) => {
-                return <span className={`
+                return <span key={`letter-${i}`} className={`
                     ${state.prompt[i] === input[i]
                     ? styles.letter_correct
                     : input[i] === undefined ? styles.letter : styles.letter_error} 
@@ -78,7 +82,6 @@ export default function Textbox() {
         onBlur={() => setHasStart(false)}
         onChange={(e) => setInput(e.target.value)} 
         value={input} />
-        {input.length}
         <div className={styles.side}></div>
         <span className={styles.time}>{state.time}</span>
     </section>

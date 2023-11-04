@@ -19,10 +19,12 @@
 .list, .mobile_list, .times {
     display: flex;
     gap: 1rem;
-    font-size: 2rem;
 }
 
-.list li:hover, .mobile_list *:hover, .times li:hover {
+.list li:hover, 
+.mobile_list *:hover, 
+.times li:hover, 
+.restart_btn:hover {
     color: var(--primary-container);
 }
 

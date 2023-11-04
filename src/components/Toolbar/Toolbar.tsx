@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { AppDispatch } from "@/helpers/Context";
+import { AppDispatch, AppState } from "@/helpers/Context";
 import { MdMoreVert } from "react-icons/md";
 import { 
     TbFileTypeHtml, 
@@ -14,6 +14,7 @@ import styles from "./Toolbar.module.css";
 
 
 export default function Toolbar() {
+    const state = useContext(AppState);
     const dispatch = useContext(AppDispatch);
 
 
@@ -24,6 +25,8 @@ export default function Toolbar() {
             <li onClick={() => dispatch({type: "set_time", payload: 60})}>60</li>
             <li onClick={() => dispatch({type: "set_time", payload: 120})}>120</li>
         </ul>
+        {state.time === 0
+        && <button className={styles.restart_btn}>Restart</button>}
         <ul className={styles.list}>
             <li>HTML</li>
             <li>CSS</li>

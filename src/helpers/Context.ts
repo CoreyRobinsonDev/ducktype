@@ -7,15 +7,21 @@ type Actions = "swap_language" |
     "decrement_time" |
     "gen_prompt" |
     "calc_wpm" |
+    "calc_cpm" |
     "set_time" |
-    "type_character"
+    "type_character" |
+    "send_correct_character"
 
 export const initialState = {
-    time: 20,
+    time: 30,
+    initialTime: 30,
     charactersTyped: 0,
-    charactersSent: 0,
+    charactersCorrect: 0,
+    accuracy: 0,
     language: "typescript",
     prompt: prompts.typescript[0],
+    cpm: 0,
+    wpm: 0
 }
 
 export const reducer = (
@@ -25,14 +31,20 @@ export const reducer = (
     switch(action.type) {
         case "swap_language": return {...state, language: action.payload};
         case "decrement_time": return {...state, time: state.time--};
-        case "set_time": return {...state, time: action.payload};
+        case "set_time": return {...state, time: action.payload, initialTime: action.payload};
         case "type_character": return {...state, charactersTyped: state.charactersTyped++}
+        case "send_correct_character": return {...state, charactersCorrect: state.charactersCorrect++};
         case "gen_prompt": {
             type PromptsKey = keyof typeof prompts;
             return {
                 ...state, 
                 prompt: prompts[state.language as PromptsKey][Math.floor(Math.random() * prompts[state.language as PromptsKey].length)]
             }
+        }
+        case "calc_cpm": {
+            const minuteRatio = 60 / state.initialTime;
+            const cpm = Math.floor(state.charactersCorrect * minuteRatio);
+            return {...state, cpm};
         }
         default: return state
     }
