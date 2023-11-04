@@ -12,9 +12,9 @@ export default function Textbox() {
     // timer
     useEffect(() => {
         if (hasStart) {
-            if (state.time === state.initialTime) {
-                dispatch({type: "add_prompt"});
-            }
+            // if (state.time === state.initialTime) {
+            //     dispatch({type: "add_prompt"});
+            // }
             const intervalID = setInterval(() => {
                 if (state.time > 0)
                     dispatch({type: "decrement_time"})
