@@ -1,0 +1,21 @@
+.aside {
+    background-color: var(--error-container);
+    color: var(--on-error-container);
+    font-weight: bold;
+    padding: 2rem;
+    border-radius: var(--border);
+    width: 100%;
+    height: fit-content;
+    box-shadow: var(--shadow);
+}
+
+.aside > h3 {
+    padding: 1rem;
+}
+
+.state_container {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    padding: 2rem;
+}

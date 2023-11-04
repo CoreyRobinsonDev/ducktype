@@ -1,3 +1,7 @@
+import { useContext } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+import { AppDispatch, AppState } from "@/helpers/Context";
 import { MdMoreVert } from "react-icons/md";
 import { 
     TbFileTypeHtml, 
@@ -5,22 +9,41 @@ import {
     TbFileTypeCss, 
     TbFileTypeTs, 
     TbFileTypeSql,
-    TbFileTypeJsx,
-    TbFileTypeTsx
     } from "react-icons/tb";
 
 import styles from "./Toolbar.module.css";
 
 
 export default function Toolbar() {
-    return <section className={styles.section}>
-        <TbFileTypeHtml title="HTML" />
-        <TbFileTypeCss title="CSS" />
-        <TbFileTypeJs title="Javascript" />
-        <TbFileTypeTs title="Typescript" />
-        <TbFileTypeJsx title="jsx" />
-        <TbFileTypeTsx title="tsx" />
-        <TbFileTypeSql title="SQL" />
-        <MdMoreVert />
+    const state = useContext(AppState);
+    const dispatch = useContext(AppDispatch);
+    const [parent] = useAutoAnimate();
+
+
+    return <section ref={parent} className={styles.section}>
+        <ul className={styles.times}>
+            <li onClick={() => dispatch({type: "set_time", payload: 10})}>10</li>
+            <li onClick={() => dispatch({type: "set_time", payload: 30})}>30</li>
+            <li onClick={() => dispatch({type: "set_time", payload: 60})}>60</li>
+            <li onClick={() => dispatch({type: "set_time", payload: 120})}>120</li>
+        </ul>
+        {state.time === 0
+        && <button className={styles.restart_btn}>Restart</button>}
+        <ul className={styles.list}>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>TypeScript</li>
+            <li>SQL</li>
+            <MdMoreVert />
+        </ul>
+        <ul className={styles.mobile_list}>
+            <TbFileTypeHtml title="HTML" />
+            <TbFileTypeCss title="CSS" />
+            <TbFileTypeJs title="JavaScript" />
+            <TbFileTypeTs title="TypeScript" />
+            <TbFileTypeSql title="SQL" />
+            <MdMoreVert />
+        </ul>
     </section>
 }

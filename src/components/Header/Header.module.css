@@ -12,6 +12,7 @@
     align-items: flex-end;
     gap: .2rem;
     font-size: 4rem;
+    font-weight: bold;
 }
 
 @keyframes cursor_blink {
