@@ -86,6 +86,7 @@ export default function Textbox() {
             }
         </pre>
         <textarea 
+        name="input"
         spellCheck={false} 
         onFocus={() => setHasStart(true)}
         onBlur={() => setHasStart(false)}
