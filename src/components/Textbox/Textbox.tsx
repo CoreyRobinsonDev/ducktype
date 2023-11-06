@@ -73,7 +73,7 @@ export default function Textbox() {
 
 
     return <section className={styles.section}>
-        <pre>
+        <div>
             { state.prompt.split("").map((letter: string, i: number) => {
                 return <span key={`letter-${i}`} className={`
                     ${state.prompt[i] === input[i]
@@ -84,7 +84,7 @@ export default function Textbox() {
                     : ""} 
                 `}>{letter}</span>})
             }
-        </pre>
+        </div>
         <textarea 
         name="input"
         spellCheck={false} 
