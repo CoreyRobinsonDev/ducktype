@@ -75,7 +75,7 @@ export default function Textbox() {
     return <section className={styles.section}>
         <pre>
             { state.prompt.split("").map((letter: string, i: number) => {
-                return <span className={`
+                return <span key={`letter-${i}`} className={`
                     ${state.prompt[i] === input[i]
                     ? styles.letter_correct
                     : input[i] === undefined ? styles.letter : styles.letter_error} 
@@ -94,5 +94,6 @@ export default function Textbox() {
         value={input} />
         <div className={styles.side}></div>
         <span className={styles.time}>{state.time}</span>
+
     </section>
 }
