@@ -7,6 +7,7 @@ type PromptsKey = keyof typeof prompts;
 const initialState = {
     time: 30,
     initialTime: 30,
+    hasStart: false,
     charactersTyped: 0,
     charactersCorrect: 0,
     accuracy: 0,
@@ -67,6 +68,12 @@ const appSlice = createSlice({
         },
         calc_accuracy: (state) => {
             state.accuracy = state.charactersCorrect / state.charactersTyped;
+        },
+        start: (state) => {
+            state.hasStart = true;
+        },
+        stop: (state) => {
+            state.hasStart = false;
         }
     }
 })
@@ -95,5 +102,7 @@ export const {
     calc_cpm,
     calc_wpm,
     calc_accuracy,
+    start,
+    stop,
 } = appSlice.actions;
 

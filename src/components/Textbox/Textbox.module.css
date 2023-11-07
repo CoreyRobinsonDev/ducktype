@@ -46,6 +46,10 @@
     transition: var(--transition);
 }
 
+.letter_tab {
+    padding-left: 4rem;
+}
+
 .section > textarea {
     position: absolute;
     top: 0;
