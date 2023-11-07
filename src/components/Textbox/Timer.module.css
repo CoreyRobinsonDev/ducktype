@@ -1,0 +1,9 @@
+.time {
+    position: absolute;
+    top: 40%;
+    right: 3rem;
+    color: var(--on-tertiary-container);
+    font-size: 10rem;
+    font-weight: bold;
+
+}

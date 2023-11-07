@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 
 import styles from "./Textbox.module.css";
 import { AppState, AppDispatch } from "@/helpers/Context";
+import Timer from "./Timer";
 
 export default function Textbox() {
     const state = useContext(AppState);
@@ -9,19 +10,6 @@ export default function Textbox() {
     const [input, setInput] = useState("");
     const [hasStart, setHasStart] = useState(false);
 
-    // timer
-    useEffect(() => {
-        if (hasStart) {
-            if (state.time === state.initialTime) {
-                dispatch({type: "add_prompt"});
-            }
-            const intervalID = setInterval(() => {
-                if (state.time > 0)
-                    dispatch({type: "decrement_time"})
-            }, 1000)
-            return () => clearInterval(intervalID);
-        }
-    }, [hasStart, state.time])
 
     // process typing
     useEffect(() => {
@@ -93,7 +81,6 @@ export default function Textbox() {
         onChange={(e) => setInput(e.target.value)} 
         value={input} />
         <div className={styles.side}></div>
-        <span className={styles.time}>{state.time}</span>
-
+        <Timer hasStart={hasStart} />
     </section>
 }
