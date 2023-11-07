@@ -18,6 +18,7 @@ export default function Home() {
         <AppDispatch.Provider value={dispatch}>
             <Header/>
             <main className={styles.main}>
+                <Debug />
                 <div className={styles.content_container}>
                     <Toolbar/>
                     <Textbox />
