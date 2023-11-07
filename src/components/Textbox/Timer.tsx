@@ -16,8 +16,7 @@ export default function Timer({hasStart}: {hasStart: boolean}) {
             const intervalID = setInterval(() => {
                 if (time > 0) {
                     setTime(t => t -= 1);
-                    console.log(time);
-                    // dispatch({type: "decrement_time"})
+                    dispatch({type: "decrement_time"})
                 }
             }, 1000)
             return () => clearInterval(intervalID);
