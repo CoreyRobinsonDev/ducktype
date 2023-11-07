@@ -1,10 +1,9 @@
-import { useContext } from "react";
 
 import styles from "./Debug.module.css";
-import { AppState } from "@/helpers/Context";
+import { useAppSelector } from "@/util/store";
 
 export default function Debug() {
-    const state = useContext(AppState);
+    const state = useAppSelector(state => state.app);
 
     return <aside className={styles.aside}>
         <section className={styles.state_container}>

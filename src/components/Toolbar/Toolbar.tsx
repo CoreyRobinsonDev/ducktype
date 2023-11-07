@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
-import { AppDispatch, AppState } from "@/helpers/Context";
+import { useAppSelector, useAppDispatch } from "@/util/store";
 import { MdMoreVert } from "react-icons/md";
 import { 
     TbFileTypeHtml, 
@@ -9,23 +9,23 @@ import {
     TbFileTypeTs, 
     TbFileTypeSql,
     } from "react-icons/tb";
-
 import styles from "./Toolbar.module.css";
+import { set_time } from "@/util/appSlice";
 
 
 export default function Toolbar() {
-    const state = useContext(AppState);
-    const dispatch = useContext(AppDispatch);
+    const time = useAppSelector(state => state.app.time);
+    const dispatch = useAppDispatch();
+    const [parent] = useAutoAnimate();
 
-
-    return <section className={styles.section}>
+    return <section ref={parent} className={styles.section}>
         <ul className={styles.times}>
-            <li onClick={() => dispatch({type: "set_time", payload: 10})}>10</li>
-            <li onClick={() => dispatch({type: "set_time", payload: 30})}>30</li>
-            <li onClick={() => dispatch({type: "set_time", payload: 60})}>60</li>
-            <li onClick={() => dispatch({type: "set_time", payload: 120})}>120</li>
+            <li onClick={() => dispatch(set_time(10))}>10</li>
+            <li onClick={() => dispatch(set_time(30))}>30</li>
+            <li onClick={() => dispatch(set_time(60))}>60</li>
+            <li onClick={() => dispatch(set_time(120))}>120</li>
         </ul>
-        {state.time === 0
+        {time === 0
         && <button className={styles.restart_btn}>Restart</button>}
         <ul className={styles.list}>
             <li>HTML</li>

@@ -1,15 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 
+import { useAppDispatch, useAppSelector } from "@/util/store";
 import styles from "./Textbox.module.css";
-import { AppState, AppDispatch } from "@/helpers/Context";
 import Timer from "./Timer";
 
 export default function Textbox() {
-    const state = useContext(AppState);
-    const dispatch = useContext(AppDispatch);
+    const state = useAppSelector(state => state.app);
+    const dispatch = useAppDispatch();
     const [input, setInput] = useState("");
     const [hasStart, setHasStart] = useState(false);
-
 
     // process typing
     useEffect(() => {
@@ -61,8 +60,9 @@ export default function Textbox() {
 
 
     return <section className={styles.section}>
-        <div>
+        <div className={styles.prompt}>
             { state.prompt.split("").map((letter: string, i: number) => {
+                if (letter === "\n") return <br key={`letter-${i}`}/>
                 return <span key={`letter-${i}`} className={`
                     ${state.prompt[i] === input[i]
                     ? styles.letter_correct

@@ -6,7 +6,7 @@
     background-color: var(--on-surface);
     max-width: var(--max-width);
     border-radius: var(--border);
-    padding: 2rem;
+    padding: 2rem 4rem; 
     color: var(--surface);
     font-weight: bold;
     box-shadow: var(--shadow);
