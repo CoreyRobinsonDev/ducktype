@@ -1,23 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 
-import { AppState, AppDispatch } from "@/helpers/Context";
+import { useAppDispatch, useAppSelector } from "@/util/store";
 import styles from "./Timer.module.css";
+import {
+    add_prompt,
+    decrement_time
+} from "@/util/appSlice";
 
 export default function Timer({hasStart}: {hasStart: boolean}) {
-    const state = useContext(AppState);
-    const dispatch = useContext(AppDispatch);
-    const [time, setTime] = useState(state.initialTime);
+    const time = useAppSelector(state => state.app.time);
+    const initialTime = useAppSelector(state => state.app.initialTime);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (hasStart) {
-            if (time === state.initialTime) {
-                dispatch({type: "add_prompt"});
+            if (time === initialTime) {
+                dispatch(add_prompt());
             }
             const intervalID = setInterval(() => {
                 if (time > 0) {
-                    setTime(t => t -= 1);
-                    console.log(time);
-                    // dispatch({type: "decrement_time"})
+                    dispatch(decrement_time());
                 }
             }, 1000)
             return () => clearInterval(intervalID);

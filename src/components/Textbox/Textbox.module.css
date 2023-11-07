@@ -11,17 +11,18 @@
     width: 100%;
     max-width: var(--max-width);
     box-shadow: var(--shadow);
+    user-select: none;
 }
 
-.section > pre, .section textarea {
+.prompt, .section textarea {
     font-weight: 600;
     letter-spacing: .04rem;
     --transition: all 100ms linear;
 }
 
-.section > pre {
-    user-select: none;
-    padding: 4rem;
+.prompt {
+    width: 100%;
+    padding: 2rem 4rem; 
 }
 
 .letter {
