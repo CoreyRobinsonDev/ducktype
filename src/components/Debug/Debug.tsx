@@ -8,7 +8,7 @@ export default function Debug() {
 
     return <aside className={styles.aside}>
         <section className={styles.state_container}>
-            {Object.entries(state).map((entry, i) => <p className={styles.state}>
+            {Object.entries(state).map((entry, i) => <p key={`state-${i}`} className={styles.state}>
                 <span className={styles.state_key}>&gt; {entry[0]}</span>: <span className={styles.state_value}>{entry[1]}</span>
             </p>)}
         </section>
