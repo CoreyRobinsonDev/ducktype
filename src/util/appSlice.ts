@@ -20,7 +20,6 @@ const initialState = {
     inaccurateCpm: 0,
     inaccurateWpm: 0,
     bestWpm: 0,
-    averageCharacterPerWord: 0
 }
 
 initialState.prompt = prompts[initialState.language as PromptsKey][0];
@@ -60,11 +59,10 @@ const appSlice = createSlice({
             state.inaccurateCpm = averageCpm;
         },
         calc_wpm: (state) => {
-            const cpw = calcAverageCharPerWord(state.promptsTotal);
-            const wpm = state.cpm / cpw;
-            state.averageCharacterPerWord = cpw; 
+            const charactersPerWord = 4.5;
+            const wpm = state.cpm / charactersPerWord;
             state.wpm = wpm; 
-            state.inaccurateWpm = state.inaccurateCpm / cpw;
+            state.inaccurateWpm = state.inaccurateCpm / charactersPerWord;
             state.bestWpm = wpm > state.bestWpm ? wpm : state.bestWpm;
         },
         calc_accuracy: (state) => {
@@ -88,7 +86,6 @@ const appSlice = createSlice({
             state.wpm = 0;
             state.inaccurateCpm = 0;
             state.inaccurateWpm = 0;
-            state.averageCharacterPerWord = 0;
             state.characters = "";
         },
         add_character: (state, action) => {
@@ -103,17 +100,6 @@ const appSlice = createSlice({
     }
 })
 
-function calcAverageCharPerWord(text: string[]): number {
-    const words = text
-        .join(" ")
-        .replaceAll("\t", " ")
-        .replaceAll("\n", " ")
-        .replaceAll(".", " ")
-        .split(" ")
-        .filter((word) => word !== "");
-
-    return words.join("").length / words.length;
-}
 
 export const appReducer = appSlice.reducer;
 export const {

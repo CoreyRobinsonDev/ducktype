@@ -78,9 +78,9 @@ export default function Textbox() {
         <div className={styles.prompt}>
             { prompt.split("").map((letter: string, i: number) => {
                 const cursor = i === characters.length ? styles.cursor : "";
-                if (letter === "\n") return <><span key={`letter-${i}`} className={`${styles.letter_newLine} ${cursor}`}>x</span><br key={`letter-${i}`} /></>
-                if (letter === "\t") return <span key={`letter-${i}`} className={`${styles.letter_tab} ${cursor}`}></span>
-                return <span key={`letter-${i}`} className={`
+                if (letter === "\n") return <><span key={`newLine-${i}`} className={`${styles.letter_newLine} ${cursor}`}>x</span><br key={`letterBreak-${i}`} /></>
+                if (letter === "\t") return <span key={`tab-${i}`} className={`${styles.letter_tab} ${cursor}`}></span>
+                return <span key={`${letter}-${i}`} className={`
                     ${cursor} 
                     ${prompt[i] === characters[i]
                     ? styles.letter_correct
