@@ -41,13 +41,21 @@
     transition: var(--transition);
 }
 
-.space_error {
+.letter_space_error {
     box-shadow: 0 3px 0 0 var(--error-container);
     transition: var(--transition);
 }
 
 .letter_tab {
     padding-left: 4rem;
+}
+
+.letter_newLine {
+    color: transparent;
+}
+
+.cursor {
+    border-bottom: 1px solid black;
 }
 
 .section > textarea {

@@ -8,6 +8,7 @@ const initialState = {
     time: 30,
     initialTime: 30,
     hasStart: false,
+    characters: "",
     charactersTyped: 0,
     charactersCorrect: 0,
     accuracy: 0,
@@ -16,8 +17,8 @@ const initialState = {
     promptsTotal: [] as string[],
     cpm: 0,
     wpm: 0,
-    averageCpm: 0,
-    averageWpm: 0,
+    inaccurateCpm: 0,
+    inaccurateWpm: 0,
     bestWpm: 0,
     averageCharacterPerWord: 0
 }
@@ -56,14 +57,14 @@ const appSlice = createSlice({
             const cpm = state.charactersCorrect * minuteRatio;
             const averageCpm = state.charactersTyped * minuteRatio;
             state.cpm = cpm 
-            state.averageCpm = averageCpm;
+            state.inaccurateCpm = averageCpm;
         },
         calc_wpm: (state) => {
             const cpw = calcAverageCharPerWord(state.promptsTotal);
             const wpm = state.cpm / cpw;
             state.averageCharacterPerWord = cpw; 
             state.wpm = wpm; 
-            state.averageWpm = state.averageCpm / cpw;
+            state.inaccurateWpm = state.inaccurateCpm / cpw;
             state.bestWpm = wpm > state.bestWpm ? wpm : state.bestWpm;
         },
         calc_accuracy: (state) => {
@@ -74,6 +75,30 @@ const appSlice = createSlice({
         },
         stop: (state) => {
             state.hasStart = false;
+        },
+        restart: (state) => {
+            state.hasStart = false;
+            state.promptsTotal = [];
+            state.prompt = prompts[initialState.language as PromptsKey][Math.floor(Math.random() * prompts[initialState.language as PromptsKey].length)];
+            state.time = state.initialTime;
+            state.charactersTyped = 0;
+            state.charactersCorrect = 0;
+            state.accuracy = 0;
+            state.cpm = 0;
+            state.wpm = 0;
+            state.inaccurateCpm = 0;
+            state.inaccurateWpm = 0;
+            state.averageCharacterPerWord = 0;
+            state.characters = "";
+        },
+        add_character: (state, action) => {
+            state.characters += action.payload;
+        },
+        remove_character: (state) => {
+            state.characters = state.characters.slice(0, state.characters.length - 1);
+        },
+        clear_characters: (state) => {
+            state.characters = "";
         }
     }
 })
@@ -104,5 +129,9 @@ export const {
     calc_accuracy,
     start,
     stop,
+    restart,
+    add_character,
+    clear_characters,
+    remove_character,
 } = appSlice.actions;
 
