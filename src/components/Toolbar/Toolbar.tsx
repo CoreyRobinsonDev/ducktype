@@ -10,7 +10,7 @@ import {
     TbFileTypeSql,
     } from "react-icons/tb";
 import styles from "./Toolbar.module.css";
-import { set_time } from "@/util/appSlice";
+import { set_time, restart } from "@/util/appSlice";
 
 
 export default function Toolbar() {
@@ -20,13 +20,15 @@ export default function Toolbar() {
 
     return <section ref={parent} className={styles.section}>
         <ul className={styles.times}>
-            <li onClick={() => dispatch(set_time(10))}>10</li>
-            <li onClick={() => dispatch(set_time(30))}>30</li>
-            <li onClick={() => dispatch(set_time(60))}>60</li>
-            <li onClick={() => dispatch(set_time(120))}>120</li>
+            <li onClick={() => {dispatch(set_time(10)); dispatch(restart())}}>10</li>
+            <li onClick={() => {dispatch(set_time(30)); dispatch(restart())}}>30</li>
+            <li onClick={() => {dispatch(set_time(60)); dispatch(restart())}}>60</li>
+            <li onClick={() => {dispatch(set_time(120)); dispatch(restart())}}>120</li>
         </ul>
         {time === 0
-        && <button className={styles.restart_btn}>Restart</button>}
+        && <button 
+            className={styles.restart_btn} 
+            onClick={() => dispatch(restart())}>Restart</button>}
         <ul className={styles.list}>
             <li>HTML</li>
             <li>CSS</li>

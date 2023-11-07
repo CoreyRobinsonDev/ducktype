@@ -1,14 +1,29 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/util/store";
+import {
+    type_character,
+    calc_accuracy,
+    calc_cpm,
+    calc_wpm,
+    send_correct_character,
+    gen_prompt,
+    add_prompt,
+    start,
+    stop,
+    add_character,
+    clear_characters,
+    remove_character,
+} from "@/util/appSlice";
 import styles from "./Textbox.module.css";
 import Timer from "./Timer";
 
 export default function Textbox() {
-    const state = useAppSelector(state => state.app);
+    const prompt = useAppSelector(state => state.app.prompt);
+    const time = useAppSelector(state => state.app.time);
+    const hasStart = useAppSelector(state => state.app.hasStart);
+    const characters = useAppSelector(state => state.app.characters);
     const dispatch = useAppDispatch();
-    const [input, setInput] = useState("");
-    const [hasStart, setHasStart] = useState(false);
 
     // process typing
     useEffect(() => {
@@ -17,29 +32,29 @@ export default function Textbox() {
             switch (e.key) {
                 case "Tab": {
                     e.preventDefault();
-                    if (state.prompt[input.length] === "\t")
-                        setInput(i => i + "\t");
+                    if (prompt[characters.length] === "\t")
+                        dispatch(add_character("\t"));
                     break;
                 }
                 case "Enter": {
                     e.preventDefault();
-                    if (state.prompt[input.length] === "\n")
-                        setInput(i => i + "\n");
+                    if (prompt[characters.length] === "\n")
+                        dispatch(add_character("\n"));
                     break;
                 }
                 default: {
-                    if (((state.prompt[input.length] === "\n" || 
-                        state.prompt[input.length] === "\t") && 
+                    if (((prompt[characters.length] === "\n" || 
+                        prompt[characters.length] === "\t") && 
                         e.key !== "Backspace") ||
-                        state.time < 0) {
+                        time === 0) {
                         e.preventDefault();
-                    } else if (e.key !== " " && e.key !== "Backspace" && e.key !== "Shift" && state.time > 0) {
-                        if (state.prompt[input.length] === e.key)
-                            dispatch({type: "send_correct_character"});
-                        dispatch({type: "type_character"});
-                        dispatch({type: "calc_accuracy"});
-                        dispatch({type: "calc_cpm"});
-                        dispatch({type: "calc_wpm"});
+                    } else if (e.key !== " " && e.key !== "Backspace" && e.key !== "Shift" && time > 0) {
+                        if (prompt[characters.length] === e.key)
+                            dispatch(send_correct_character());
+                        dispatch(type_character());
+                        dispatch(calc_accuracy());
+                        dispatch(calc_cpm());
+                        dispatch(calc_wpm());
                     }
                 }
             }
@@ -47,40 +62,49 @@ export default function Textbox() {
         document.addEventListener("keydown", keyDownHandler);
 
         return () => document.removeEventListener("keydown", keyDownHandler);
-    }, [input, hasStart])
+    }, [characters])
 
     // generate new prompt
     useEffect(() => {
-        if (input.length === state.prompt.length) {
-            setInput("");
-            dispatch({type: "gen_prompt"});
-            dispatch({type: "add_prompt"});
+        if (characters.length === prompt.length) {
+            dispatch(clear_characters());
+            dispatch(gen_prompt());
+            dispatch(add_prompt());
         }
-    }, [input])
+    }, [characters])
 
 
     return <section className={styles.section}>
         <div className={styles.prompt}>
-            { state.prompt.split("").map((letter: string, i: number) => {
-                if (letter === "\n") return <br key={`letter-${i}`}/>
-                return <span key={`letter-${i}`} className={`
-                    ${state.prompt[i] === input[i]
+            { prompt.split("").map((letter: string, i: number) => {
+                const cursor = i === characters.length ? styles.cursor : "";
+                if (letter === "\n") return <><span key={`newLine-${i}`} className={`${styles.letter_newLine} ${cursor}`}>x</span><br key={`letterBreak-${i}`} /></>
+                if (letter === "\t") return <span key={`tab-${i}`} className={`${styles.letter_tab} ${cursor}`}></span>
+                return <span key={`${letter}-${i}`} className={`
+                    ${cursor} 
+                    ${prompt[i] === characters[i]
                     ? styles.letter_correct
-                    : input[i] === undefined ? styles.letter : styles.letter_error} 
-                    ${state.prompt[i] === " " && input[i] !== " " && input[i] !== undefined
-                    ? styles.space_error
+                    : characters[i] === undefined ? styles.letter : styles.letter_error} 
+                    ${prompt[i] === " " && characters[i] !== " " && characters[i] !== undefined
+                    ? styles.letter_space_error
                     : ""} 
                 `}>{letter}</span>})
             }
         </div>
         <textarea 
-        name="input"
+        name="characters"
         spellCheck={false} 
-        onFocus={() => setHasStart(true)}
-        onBlur={() => setHasStart(false)}
-        onChange={(e) => setInput(e.target.value)} 
-        value={input} />
+        onFocus={() => dispatch(start())}
+        onBlur={() => dispatch(stop())}
+        onChange={(e) => {
+            if (e.target.value.length > characters.length) {
+                dispatch(add_character(e.target.value[e.target.value.length - 1])); 
+            } else {
+                dispatch(remove_character());
+            }
+        }}
+        value={characters} />
         <div className={styles.side}></div>
-        <Timer hasStart={hasStart} />
+        <Timer  />
     </section>
 }

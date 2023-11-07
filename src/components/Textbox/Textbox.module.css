@@ -25,25 +25,40 @@
     padding: 2rem 4rem; 
 }
 
-.letter {
+.letter, 
+.cursor,
+.letter_correct, 
+.letter_error,
+.letter_space_error,
+.letter_tab,
+.letter_newLine {
     opacity: 50%;
     transition: var(--transition);
 }
 
 .letter_correct {
     opacity: 100%;
-    transition: var(--transition);
 }
 
 .letter_error {
     opacity: 100%;
     color: var(--error-container);
-    transition: var(--transition);
 }
 
-.space_error {
+.letter_space_error {
     box-shadow: 0 3px 0 0 var(--error-container);
-    transition: var(--transition);
+}
+
+.letter_tab {
+    padding-left: 4rem;
+}
+
+.letter_newLine {
+    color: transparent;
+}
+
+.cursor {
+    border-bottom: 2px solid black;
 }
 
 .section > textarea {

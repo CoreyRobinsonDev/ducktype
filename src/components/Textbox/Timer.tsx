@@ -7,9 +7,10 @@ import {
     decrement_time
 } from "@/util/appSlice";
 
-export default function Timer({hasStart}: {hasStart: boolean}) {
+export default function Timer() {
     const time = useAppSelector(state => state.app.time);
     const initialTime = useAppSelector(state => state.app.initialTime);
+    const hasStart = useAppSelector(state => state.app.hasStart);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
