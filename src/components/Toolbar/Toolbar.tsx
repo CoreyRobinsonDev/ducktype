@@ -9,14 +9,24 @@ import {
     TbFileTypeTs, 
     TbFileTypeSql,
     } from "react-icons/tb";
+import type { RefObject } from "react";
+
 import styles from "./Toolbar.module.css";
-import { set_time, restart } from "@/util/appSlice";
+import { 
+    set_time,
+    restart,
+    } from "@/util/appSlice";
 
 
-export default function Toolbar() {
+export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAreaElement>}) {
     const time = useAppSelector(state => state.app.time);
     const dispatch = useAppDispatch();
     const [parent] = useAutoAnimate();
+
+    const handleClick = () => {
+        dispatch(restart());
+        textboxRef?.current?.focus();
+    }
 
     return <section ref={parent} className={styles.section}>
         <ul className={styles.times}>
@@ -28,7 +38,7 @@ export default function Toolbar() {
         {time === 0
         && <button 
             className={styles.restart_btn} 
-            onClick={() => dispatch(restart())}>Restart</button>}
+            onClick={handleClick}>Restart</button>}
         <ul className={styles.list}>
             <li>HTML</li>
             <li>CSS</li>

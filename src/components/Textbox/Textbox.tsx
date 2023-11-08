@@ -1,4 +1,5 @@
 "use client"
+import type { RefObject } from "react";
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/util/store";
@@ -19,12 +20,13 @@ import {
 import styles from "./Textbox.module.css";
 import Timer from "./Timer";
 
-export default function Textbox() {
+export default function Textbox({textboxRef}: {textboxRef: RefObject<HTMLTextAreaElement>}) {
     const prompt = useAppSelector(state => state.app.prompt);
     const time = useAppSelector(state => state.app.time);
     const hasStart = useAppSelector(state => state.app.hasStart);
     const characters = useAppSelector(state => state.app.characters);
     const dispatch = useAppDispatch();
+
 
     // process typing
     useEffect(() => {
@@ -93,6 +95,7 @@ export default function Textbox() {
             }
         </div>
         <textarea 
+        ref={textboxRef}
         name="characters"
         spellCheck={false} 
         onFocus={() => dispatch(start())}
