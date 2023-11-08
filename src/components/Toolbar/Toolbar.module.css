@@ -4,7 +4,6 @@
     align-items: center;
     width: 100%;
     background-color: var(--on-surface);
-    max-width: var(--max-width);
     border-radius: var(--border);
     padding: 2rem 4rem; 
     color: var(--surface);

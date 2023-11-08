@@ -1,4 +1,5 @@
 .section {
+    flex: 1 1 fit-content;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -6,11 +7,10 @@
     color: var(--surface);
     font-size: 2rem;
     line-height: 2.5rem;
-    border: 2px var(--tertiary-container) solid;
+    border: 5px var(--tertiary-container) solid;
     border-radius: var(--border);
     width: 100%;
     max-width: var(--max-width);
-    box-shadow: -4px 4px 0 0 var(--tertiary-container);
     user-select: none;
     scrollbar-width: none;
 }
@@ -22,6 +22,8 @@
 .prompt, .section textarea {
     font-weight: 600;
     letter-spacing: .04rem;
+    overflow-x: hidden;
+    text-wrap: nowrap;
     --transition: all 100ms linear;
 }
 
@@ -81,13 +83,5 @@
     display: none;
 }  
 
-.side {
-    background-color: var(--on-surface);
-    width: 1000px;
-    height: auto;
-    margin-right: 274px;
-    border-radius: var(--border);
-    box-shadow: 28rem 0 0 0 var(--tertiary-container);
-}
 
 

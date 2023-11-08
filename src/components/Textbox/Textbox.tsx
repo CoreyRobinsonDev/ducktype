@@ -1,4 +1,5 @@
 "use client"
+import type { RefObject } from "react";
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/util/store";
@@ -19,12 +20,13 @@ import {
 import styles from "./Textbox.module.css";
 import Timer from "./Timer";
 
-export default function Textbox() {
+export default function Textbox({textboxRef}: {textboxRef: RefObject<HTMLTextAreaElement>}) {
     const prompt = useAppSelector(state => state.app.prompt);
     const time = useAppSelector(state => state.app.time);
     const hasStart = useAppSelector(state => state.app.hasStart);
     const characters = useAppSelector(state => state.app.characters);
     const dispatch = useAppDispatch();
+
 
     // process typing
     useEffect(() => {
@@ -75,37 +77,39 @@ export default function Textbox() {
     }, [characters])
 
 
-    return <section className={styles.section}>
-        <div className={styles.prompt}>
-            { prompt.split("").map((letter: string, i: number) => {
-                const cursor = i === characters.length ? styles.cursor : "";
-                if (letter === "\n") return <span key={`newLine-container-${i}`}><span key={`newLine-${i}`} className={`${styles.letter_newLine} ${cursor}`}>x</span><br key={`letterBreak-${i}`} /></span>
-                if (letter === "\t") return <span key={`tab-${i}`} className={`${styles.letter_tab} ${cursor}`}></span>
-                return <span key={`${letter}-${i}`} className={`
-                    ${cursor} 
-                    ${prompt[i] === characters[i]
-                    ? styles.letter_correct
-                    : characters[i] === undefined ? styles.letter : styles.letter_error} 
-                    ${prompt[i] === " " && characters[i] !== " " && characters[i] !== undefined
-                    ? styles.letter_space_error
-                    : ""} 
-                `}>{letter}</span>})
-            }
-        </div>
-        <textarea 
-        name="characters"
-        spellCheck={false} 
-        onFocus={() => dispatch(start())}
-        onBlur={() => dispatch(stop())}
-        onChange={(e) => {
-            if (e.target.value.length > characters.length) {
-                dispatch(add_character(e.target.value[e.target.value.length - 1])); 
-            } else {
-                dispatch(remove_character());
-            }
-        }}
-        value={characters} />
-        <div className={styles.side}></div>
-        <Timer  />
-    </section>
+    return <Timer> 
+        <section className={styles.section}>
+            <div className={styles.prompt}>
+                { prompt.split("").map((letter: string, i: number) => {
+                    const cursor = i === characters.length ? styles.cursor : "";
+                    if (letter === "\n") return <span key={`newLine-container-${i}`}><span key={`newLine-${i}`} className={`${styles.letter_newLine} ${cursor}`}>x</span><br key={`letterBreak-${i}`} /></span>
+                    if (letter === "\t") return <span key={`tab-${i}`} className={`${styles.letter_tab} ${cursor}`}></span>
+                    return <span key={`${letter}-${i}`} className={`
+                        ${cursor} 
+                        ${prompt[i] === characters[i]
+                        ? styles.letter_correct
+                        : characters[i] === undefined ? styles.letter : styles.letter_error} 
+                        ${prompt[i] === " " && characters[i] !== " " && characters[i] !== undefined
+                        ? styles.letter_space_error
+                        : ""} 
+                    `}>{letter}</span>})
+                }
+            </div>
+            <textarea 
+            ref={textboxRef}
+            name="characters"
+            spellCheck={false} 
+            onFocus={() => dispatch(start())}
+            onBlur={() => dispatch(stop())}
+            onChange={(e) => {
+                if (e.target.value.length > characters.length) {
+                    dispatch(add_character(e.target.value[e.target.value.length - 1])); 
+                } else {
+                    dispatch(remove_character());
+                }
+            }}
+            value={characters} />
+            <div className={styles.side}></div>
+        </section>
+    </Timer>
 }

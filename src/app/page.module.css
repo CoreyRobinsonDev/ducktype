@@ -1,12 +1,13 @@
 .main {
-    display: grid;
-    grid-template-columns: minmax(200px, 24%) minmax(70%, var(--max-width));
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 2rem;
     padding: 2rem;
 }
 
 .content_container {
-    grid-area: 1/2/2/3;
+    flex: 0 1 var(--max-width);
     display: flex;
     flex-direction: column;
     gap: 2rem;

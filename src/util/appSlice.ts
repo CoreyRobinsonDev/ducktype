@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { RefObject } from "react";
 
 
 import { prompts } from "./prompts";
@@ -96,7 +97,7 @@ const appSlice = createSlice({
         },
         clear_characters: (state) => {
             state.characters = "";
-        }
+        },
     }
 })
 
