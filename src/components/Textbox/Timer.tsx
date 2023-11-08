@@ -7,8 +7,9 @@ import {
     add_prompt,
     decrement_time
 } from "@/util/appSlice";
+import Number from "./Number";
 
-export default function Timer() {
+export default function Timer({children}: {children: React.ReactNode}) {
     const time = useAppSelector(state => state.app.time);
     const initialTime = useAppSelector(state => state.app.initialTime);
     const hasStart = useAppSelector(state => state.app.hasStart);
@@ -28,7 +29,12 @@ export default function Timer() {
         }
     }, [hasStart, time])
 
-    return <span className={styles.time}>
-        {time}
+    return <span className={styles.section}>
+        {children}
+        <p className={styles.time}>
+            <Number number={Math.floor(time / 100)} />
+            <Number number={Math.floor(time / 10) % 10} />
+            <Number number={time % 10} />
+        </p>
     </span>
 }

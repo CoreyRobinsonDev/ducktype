@@ -1,9 +1,15 @@
+.section {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: var(--tertiary-container);
+    border-radius: var(--border);
+    box-shadow: -5px 5px 0 0 var(--tertiary-container);
+}
+
 .time {
-    position: absolute;
-    top: 35%;
-    right: 3rem;
+    display: flex;
     color: var(--on-tertiary-container);
-    font-size: 10rem;
-    font-weight: bold;
+    width: 200px;
 }
 

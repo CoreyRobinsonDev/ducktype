@@ -4,7 +4,6 @@
     gap: 2rem;
     padding-bottom: 2rem;
     width: 100%;
-    max-width: var(--max-width);
 }
 
 .card {
@@ -53,6 +52,6 @@
 }
 
 .inaccurate_cpm {
-    right: -3ch;
+    right: -2.8ch;
 }
 
