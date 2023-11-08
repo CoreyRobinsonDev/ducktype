@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+"use client"
+import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/util/store";
 import styles from "./Timer.module.css";

@@ -1,16 +1,18 @@
 .aside {
-    background-color: var(--error-container);
-    color: var(--on-error-container);
+    background-color: var(--error);
+    color: var(--on-error);
     font-weight: bold;
     padding: 2rem;
     border-radius: var(--border);
     width: 100%;
     height: fit-content;
-    box-shadow: var(--shadow);
+    box-shadow: -4px 4px 0 0 var(--error-container);
 }
 
 .aside > h3 {
-    padding: 1rem;
+    width: fit-content;
+    border-bottom: 1px dashed var(--on-error);
+    margin: 1rem;
 }
 
 .state_container {

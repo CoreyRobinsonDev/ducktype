@@ -11,13 +11,4 @@
     flex-direction: column;
     gap: 2rem;
 }
-.card_container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-    padding-bottom: 2rem;
-    width: 100%;
-    max-width: var(--max-width);
-}
 
