@@ -10,8 +10,13 @@
     border-radius: var(--border);
     width: 100%;
     max-width: var(--max-width);
-    box-shadow: var(--shadow);
+    box-shadow: -4px 4px 0 0 var(--tertiary-container);
     user-select: none;
+    scrollbar-width: none;
+}
+
+.section::-webkit-scrollbar {
+    display: none;
 }
 
 .prompt, .section textarea {
@@ -58,7 +63,7 @@
 }
 
 .cursor {
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid var(--on-primary);
 }
 
 .section > textarea {
@@ -69,6 +74,7 @@
     padding: 4rem;
     height: 100%;
     resize: none;
+    scrollbar-width: none;
 }
 
 .section > textarea::-webkit-scrollbar {

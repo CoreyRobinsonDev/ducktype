@@ -1,3 +1,4 @@
+"use client"
 import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/util/store";
@@ -78,7 +79,7 @@ export default function Textbox() {
         <div className={styles.prompt}>
             { prompt.split("").map((letter: string, i: number) => {
                 const cursor = i === characters.length ? styles.cursor : "";
-                if (letter === "\n") return <><span key={`newLine-${i}`} className={`${styles.letter_newLine} ${cursor}`}>x</span><br key={`letterBreak-${i}`} /></>
+                if (letter === "\n") return <span key={`newLine-container-${i}`}><span key={`newLine-${i}`} className={`${styles.letter_newLine} ${cursor}`}>x</span><br key={`letterBreak-${i}`} /></span>
                 if (letter === "\t") return <span key={`tab-${i}`} className={`${styles.letter_tab} ${cursor}`}></span>
                 return <span key={`${letter}-${i}`} className={`
                     ${cursor} 
