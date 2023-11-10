@@ -6,7 +6,7 @@ import styles from "./Timer.module.css";
 import {
     add_prompt,
     decrement_time
-} from "@/util/appSlice";
+} from "@/util/slices/appSlice";
 import Number from "./Number";
 
 export default function Timer({children}: {children: React.ReactNode}) {

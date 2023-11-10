@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { RefObject } from "react";
 
-
-import { prompts } from "./prompts";
+import { prompts } from "../prompts";
 
 type PromptsKey = keyof typeof prompts;
 const initialState = {

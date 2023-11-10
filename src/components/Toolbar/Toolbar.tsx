@@ -15,7 +15,7 @@ import styles from "./Toolbar.module.css";
 import { 
     set_time,
     restart,
-    } from "@/util/appSlice";
+    } from "@/util/slices/appSlice";
 
 
 export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAreaElement>}) {
@@ -23,22 +23,28 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
     const dispatch = useAppDispatch();
     const [parent] = useAutoAnimate();
 
-    const handleClick = () => {
+    const handleRestart = () => {
+        dispatch(restart());
+        textboxRef?.current?.focus();
+    }
+
+    const handleTime = (time: number) => {
+        dispatch(set_time(time));
         dispatch(restart());
         textboxRef?.current?.focus();
     }
 
     return <section ref={parent} className={styles.section}>
         <ul className={styles.times}>
-            <li onClick={() => {dispatch(set_time(10)); dispatch(restart())}}>10</li>
-            <li onClick={() => {dispatch(set_time(30)); dispatch(restart())}}>30</li>
-            <li onClick={() => {dispatch(set_time(60)); dispatch(restart())}}>60</li>
-            <li onClick={() => {dispatch(set_time(120)); dispatch(restart())}}>120</li>
+            <li onClick={() => handleTime(10)}>10</li>
+            <li onClick={() => handleTime(30)}>30</li>
+            <li onClick={() => handleTime(60)}>60</li>
+            <li onClick={() => handleTime(120)}>120</li>
         </ul>
         {time === 0
         && <button 
             className={styles.restart_btn} 
-            onClick={handleClick}>Restart</button>}
+            onClick={handleRestart}>Restart</button>}
         <ul className={styles.list}>
             <li>HTML</li>
             <li>CSS</li>
