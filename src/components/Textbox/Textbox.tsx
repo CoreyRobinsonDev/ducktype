@@ -16,7 +16,7 @@ import {
     add_character,
     clear_characters,
     remove_character,
-} from "@/util/slices/appSlice";
+    } from "@/util/slices/appSlice";
 import styles from "./Textbox.module.css";
 import Timer from "./Timer";
 

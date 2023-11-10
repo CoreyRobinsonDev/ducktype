@@ -15,6 +15,8 @@ import styles from "./Toolbar.module.css";
 import { 
     set_time,
     restart,
+    swap_language,
+    gen_prompt
     } from "@/util/slices/appSlice";
 
 
@@ -34,6 +36,13 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
         textboxRef?.current?.focus();
     }
 
+    const handleLanguage = (lang: string) => {
+        dispatch(swap_language(lang));
+        dispatch(restart());
+        dispatch(gen_prompt());
+        textboxRef?.current?.focus();
+    }
+
     return <section ref={parent} className={styles.section}>
         <ul className={styles.times}>
             <li onClick={() => handleTime(10)}>10</li>
@@ -46,11 +55,11 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
             className={styles.restart_btn} 
             onClick={handleRestart}>Restart</button>}
         <ul className={styles.list}>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-            <li>TypeScript</li>
-            <li>SQL</li>
+            <li onClick={() => handleLanguage("html")}>HTML</li>
+            <li onClick={() => handleLanguage("css")}>CSS</li>
+            <li onClick={() => handleLanguage("javascript")}>JavaScript</li>
+            <li onClick={() => handleLanguage("typescript")}>TypeScript</li>
+            <li onClick={() => handleLanguage("sql")}>SQL</li>
             <MdMoreVert />
         </ul>
         <ul className={styles.mobile_list}>
