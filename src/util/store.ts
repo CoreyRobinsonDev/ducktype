@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
-import { appReducer } from "./appSlice";
+import { appReducer } from "./slices/appSlice";
+import { configReducer } from "./slices/configSlice";
 
- const store = configureStore({
+const store = configureStore({
     reducer: {
-        app: appReducer
+        app: appReducer,
+        config: configReducer
     }
 })
 

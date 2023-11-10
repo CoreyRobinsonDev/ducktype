@@ -15,7 +15,9 @@ import styles from "./Toolbar.module.css";
 import { 
     set_time,
     restart,
-    } from "@/util/appSlice";
+    swap_language,
+    gen_prompt
+    } from "@/util/slices/appSlice";
 
 
 export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAreaElement>}) {
@@ -23,28 +25,48 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
     const dispatch = useAppDispatch();
     const [parent] = useAutoAnimate();
 
-    const handleClick = () => {
+    const handleRestart = () => {
         dispatch(restart());
+        textboxRef?.current?.focus();
+    }
+
+    const handleTime = (time: number) => {
+        dispatch(set_time(time));
+        dispatch(restart());
+        textboxRef?.current?.focus();
+    }
+
+    const handleLanguage = (lang: string) => {
+        dispatch(swap_language(lang));
+        dispatch(restart());
+        dispatch(gen_prompt());
         textboxRef?.current?.focus();
     }
 
     return <section ref={parent} className={styles.section}>
         <ul className={styles.times}>
-            <li onClick={() => {dispatch(set_time(10)); dispatch(restart())}}>10</li>
-            <li onClick={() => {dispatch(set_time(30)); dispatch(restart())}}>30</li>
-            <li onClick={() => {dispatch(set_time(60)); dispatch(restart())}}>60</li>
-            <li onClick={() => {dispatch(set_time(120)); dispatch(restart())}}>120</li>
+            <li onClick={() => handleTime(10)}>10</li>
+            <li onClick={() => handleTime(30)}>30</li>
+            <li onClick={() => handleTime(60)}>60</li>
+            <li onClick={() => handleTime(120)}>120</li>
         </ul>
         {time === 0
         && <button 
             className={styles.restart_btn} 
-            onClick={handleClick}>Restart</button>}
+            onClick={handleRestart}>Restart</button>}
         <ul className={styles.list}>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-            <li>TypeScript</li>
-            <li>SQL</li>
+            <li onClick={() => handleLanguage("html")}>HTML</li>
+            <li onClick={() => handleLanguage("css")}>CSS</li>
+            <li onClick={() => handleLanguage("javascript")}>JavaScript</li>
+            <li onClick={() => handleLanguage("typescript")}>TypeScript</li>
+            <li onClick={() => handleLanguage("sql")}>SQL</li>
+            <li onClick={() => handleLanguage("python")}>Python</li>
+            <li onClick={() => handleLanguage("java")}>Java</li>
+            <li onClick={() => handleLanguage("go")}>Go</li>
+            <li onClick={() => handleLanguage("rust")}>Rust</li>
+            <li onClick={() => handleLanguage("c")}>C</li>
+            <li onClick={() => handleLanguage("csharp")}>C#</li>
+            <li onClick={() => handleLanguage("cpp")}>C++</li>
             <MdMoreVert />
         </ul>
         <ul className={styles.mobile_list}>

@@ -1,10 +1,27 @@
+import typescript from "./languages/typescript";
+import javascript from "./languages/javascript";
+import html from "./languages/html";
+import css from "./languages/css";
+import sql from "./languages/sql";
+import python from "./languages/python";
+import java from "./languages/java";
+import go from "./languages/go";
+import rust from "./languages/rust";
+import c from "./languages/c";
+import csharp from "./languages/csharp";
+import cpp from "./languages/cpp";
+
 export const prompts = {
-    typescript: [
-        `function getTime(): number {\n\treturn new Date().getTime();\n}`,
-        `function printHello(): void {\n\tconsole.log("Hello!");\n}`,
-        `const user = {\n\tname: "Hayes",\n\tid: 0,\n};`,
-        `let helloWorld = "Hello World";`,
-        `interface User {\n\tname: string;\n\tid: number;\n}`,
-        `interface User {\n\tname: string;\n\tid: number;\n}\n\nclass UserAccount {\n\tname: string;\n\tid: number;\n\n\tconstructor(name: string, id: number) {\n\t\tthis.name = name;\n\t\tthis.id = id;\n\t}\n}\n\nconst user: User = new UserAccount("Murphy", 1);`
-    ]
+    typescript,
+    javascript,
+    html,
+    css,
+    sql,
+    python,
+    java,
+    go,
+    rust,
+    c,
+    csharp,
+    cpp,
 };

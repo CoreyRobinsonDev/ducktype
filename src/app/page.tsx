@@ -1,5 +1,6 @@
 "use client";
 import { Provider } from 'react-redux';
+import { useEffect } from 'react';
 
 import store from '@/util/store';
 import styles from './page.module.css'
@@ -11,6 +12,7 @@ import RefProvider from '@/components/RefProvider/RefProvider';
 
 
 export default function Home() {
+
     return <Provider store={store}>
         <Header/>
         <main className={styles.main}>

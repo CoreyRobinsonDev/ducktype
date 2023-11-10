@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { RefObject } from "react";
 
-
-import { prompts } from "./prompts";
+import { prompts } from "../prompts";
 
 type PromptsKey = keyof typeof prompts;
 const initialState = {
@@ -78,7 +76,7 @@ const appSlice = createSlice({
         restart: (state) => {
             state.hasStart = false;
             state.promptsTotal = [];
-            state.prompt = prompts[initialState.language as PromptsKey][Math.floor(Math.random() * prompts[initialState.language as PromptsKey].length)];
+            state.prompt = prompts[state.language as PromptsKey][Math.floor(Math.random() * prompts[state.language as PromptsKey].length)];
             state.time = state.initialTime;
             state.charactersTyped = 0;
             state.charactersCorrect = 0;
@@ -98,6 +96,21 @@ const appSlice = createSlice({
         clear_characters: (state) => {
             state.characters = "";
         },
+        load_cache_to_client: (state) => {
+            try {
+                const saved = window.localStorage.getItem("app_state");
+                if (saved !== null) { 
+                    const cache = JSON.parse(saved) as typeof initialState;
+                    state.initialTime = cache.initialTime;
+                    state.time = cache.initialTime;
+                    state.bestWpm = cache.bestWpm;
+                    state.language = cache.language;
+                };
+            } catch { }
+        },
+        save_client_to_cache: (state) => {
+            window.localStorage.setItem("app_state", JSON.stringify(state));
+        }
     }
 })
 
@@ -120,5 +133,7 @@ export const {
     add_character,
     clear_characters,
     remove_character,
+    load_cache_to_client,
+    save_client_to_cache,
 } = appSlice.actions;
 
