@@ -15,6 +15,24 @@ export default function Cards() {
     const characters = useAppSelector(state => state.app.characters).length;
     const totalCharacters = useAppSelector(state => state.app.promptsTotal).join("").length;
 
+    const getLanguageName = () => {
+        switch(language) {
+            case "html": return "HTML";
+            case "css": return "CSS";
+            case "javascript": return "JavaScript";
+            case "typescript": return "TypeScript";
+            case "sql": return "SQL";
+            case "python": return "Python";
+            case "java": return "Java";
+            case "go": return "Go";
+            case "rust": return "Rust";
+            case "c": return "C";
+            case "csharp": return "C#";
+            case "cpp": return "C++";
+        }
+
+    }
+
     return <section className={styles.section}>
         <div className={styles.card}>
             <h2 title="words per minute">wpm</h2>
@@ -40,7 +58,7 @@ export default function Cards() {
             <h2 title="session time in seconds">time</h2>
             <p className={styles.data_small}>{initialTime}sec</p>
             <h2 title="prompt language">language</h2>
-            <p className={styles.data_small}>{language}</p>
+            <p className={styles.data_small}>{getLanguageName()}</p>
         </div>
     </section>
 }

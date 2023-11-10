@@ -60,6 +60,13 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
             <li onClick={() => handleLanguage("javascript")}>JavaScript</li>
             <li onClick={() => handleLanguage("typescript")}>TypeScript</li>
             <li onClick={() => handleLanguage("sql")}>SQL</li>
+            <li onClick={() => handleLanguage("python")}>Python</li>
+            <li onClick={() => handleLanguage("java")}>Java</li>
+            <li onClick={() => handleLanguage("go")}>Go</li>
+            <li onClick={() => handleLanguage("rust")}>Rust</li>
+            <li onClick={() => handleLanguage("c")}>C</li>
+            <li onClick={() => handleLanguage("csharp")}>C#</li>
+            <li onClick={() => handleLanguage("cpp")}>C++</li>
             <MdMoreVert />
         </ul>
         <ul className={styles.mobile_list}>
