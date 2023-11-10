@@ -5,7 +5,8 @@ import { useAppDispatch, useAppSelector } from "@/util/store";
 import styles from "./Timer.module.css";
 import {
     add_prompt,
-    decrement_time
+    decrement_time,
+    save_client_to_cache,
 } from "@/util/slices/appSlice";
 import Number from "./Number";
 
@@ -28,6 +29,11 @@ export default function Timer({children}: {children: React.ReactNode}) {
             return () => clearInterval(intervalID);
         }
     }, [hasStart, time])
+
+    useEffect(() => {
+        if (time === 0)
+            dispatch(save_client_to_cache());
+    }, [time])
 
     return <span className={styles.section}>
         {children}
