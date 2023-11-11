@@ -1,5 +1,5 @@
 .section {
-    flex: 1 1 fit-content;
+    flex: 1 1 100px;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -9,7 +9,6 @@
     line-height: 2.5rem;
     border: 5px var(--tertiary-container) solid;
     border-radius: var(--border);
-    width: 100%;
     max-width: var(--max-width);
     user-select: none;
     scrollbar-width: none;
@@ -21,16 +20,22 @@
 
 .prompt, .section textarea {
     font-weight: 600;
-    letter-spacing: .04rem;
-    overflow-x: hidden;
+    letter-spacing: .08rem;
     text-wrap: nowrap;
+    padding: 4rem;
     --transition: all 100ms linear;
+    overflow: hidden;
 }
 
-.prompt {
-    width: 100%;
-    padding: 2rem 4rem; 
+.section > textarea {
+    position: absolute;
+    top: 0;
+    background-color: transparent;
+    color: transparent;
+    height: 100%;
+    resize: none;
 }
+
 
 .letter, 
 .cursor,
@@ -68,20 +73,16 @@
     border-bottom: 1px solid var(--on-primary);
 }
 
-.section > textarea {
-    position: absolute;
-    top: 0;
-    background-color: transparent;
-    color: transparent;
-    padding: 4rem;
-    height: 100%;
-    resize: none;
-    scrollbar-width: none;
+@media only screen and (max-width: 900px) {
+    .section {
+        font-size: 1.4rem;
+    }
+
+    .prompt, .section textarea {
+        padding: 2rem;
+    }
 }
 
-.section > textarea::-webkit-scrollbar {
-    display: none;
-}  
 
 
 

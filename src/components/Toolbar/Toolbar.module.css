@@ -25,7 +25,8 @@
 .list li:hover, 
 .mobile_list *:hover, 
 .times li:hover, 
-.restart_btn:hover {
+.restart_btn:hover,
+.mobile_restart_btn:hover {
     color: var(--primary-container);
 }
 
@@ -33,7 +34,19 @@
     padding-right: 2rem;
 }
 
-.mobile_list {
+.mobile_list, .mobile_restart_btn {
     display: none;
 }
 
+
+
+@media only screen and (max-width: 900px) {
+    .list, .restart_btn {
+        display: none;
+    }
+
+    .mobile_list, .mobile_restart_btn {
+        display: inherit;
+    }
+
+}

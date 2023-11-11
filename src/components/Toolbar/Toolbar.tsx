@@ -1,15 +1,9 @@
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import type { RefObject } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { MdMoreVert, MdRestartAlt } from "react-icons/md";
 
 import { useAppSelector, useAppDispatch } from "@/util/store";
-import { MdMoreVert } from "react-icons/md";
-import { 
-    TbFileTypeHtml, 
-    TbFileTypeJs, 
-    TbFileTypeCss, 
-    TbFileTypeTs, 
-    TbFileTypeSql,
-    } from "react-icons/tb";
-import type { RefObject } from "react";
 
 import styles from "./Toolbar.module.css";
 import { 
@@ -54,10 +48,16 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
             <li onClick={() => handleTime(60)}>60</li>
             <li onClick={() => handleTime(120)}>120</li>
         </ul>
-        {time === 0
-        && <button 
-            className={styles.restart_btn} 
-            onClick={handleRestart}>Restart</button>}
+        { time === 0
+            && <><button 
+                className={styles.restart_btn} 
+                onClick={handleRestart}>Restart</button>
+                <MdRestartAlt
+                size={"2rem"}
+                className={styles.mobile_restart_btn} 
+                onClick={handleRestart} />
+                </>
+        }
         <ul className={styles.list}>
             <li onClick={() => handleLanguage("html")}>HTML</li>
             <li onClick={() => handleLanguage("css")}>CSS</li>
@@ -74,12 +74,7 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
             <MdMoreVert />
         </ul>
         <ul className={styles.mobile_list}>
-            <TbFileTypeHtml title="HTML" />
-            <TbFileTypeCss title="CSS" />
-            <TbFileTypeJs title="JavaScript" />
-            <TbFileTypeTs title="TypeScript" />
-            <TbFileTypeSql title="SQL" />
-            <MdMoreVert />
+            <GiHamburgerMenu/>
         </ul>
     </section>
 }
