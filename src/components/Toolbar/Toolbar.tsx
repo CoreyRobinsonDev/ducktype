@@ -16,7 +16,8 @@ import {
     set_time,
     restart,
     swap_language,
-    gen_prompt
+    gen_prompt,
+    save_client_to_cache
     } from "@/util/slices/appSlice";
 
 
@@ -27,12 +28,14 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
 
     const handleRestart = () => {
         dispatch(restart());
+        dispatch(save_client_to_cache());
         textboxRef?.current?.focus();
     }
 
     const handleTime = (time: number) => {
         dispatch(set_time(time));
         dispatch(restart());
+        dispatch(save_client_to_cache());
         textboxRef?.current?.focus();
     }
 
@@ -40,6 +43,7 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
         dispatch(swap_language(lang));
         dispatch(restart());
         dispatch(gen_prompt());
+        dispatch(save_client_to_cache());
         textboxRef?.current?.focus();
     }
 
