@@ -4,12 +4,35 @@
     flex-wrap: wrap;
     background-color: var(--tertiary-container);
     border-radius: var(--border);
-    box-shadow: -5px 5px 0 0 var(--tertiary-container);
+    box-shadow: 0 5px 0 0 var(--tertiary-container);
 }
 
-.time {
+.number_container {
     display: flex;
+    align-items: center;
     color: var(--on-tertiary-container);
-    width: 200px;
+    width: 180px;
+    height: 80px;
+    padding: 2rem;
+}
+
+
+.num_1 {
+    position: absolute;
+    right: 11.6rem;
+    width: 8rem;
+    height: 10rem;
+}
+.num_2 {
+    position: absolute;
+    right: 7.3rem;
+    width: 8rem;
+    height: 10rem;
+}
+.num_3 {
+    position: absolute;
+    right: 3rem;
+    width: 8rem;
+    height: 10rem;
 }
 

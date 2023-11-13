@@ -105,6 +105,7 @@ const appSlice = createSlice({
                     state.time = cache.initialTime;
                     state.bestWpm = cache.bestWpm;
                     state.language = cache.language;
+                    state.prompt = prompts[cache.language as PromptsKey][Math.floor(Math.random() * prompts[cache.language as PromptsKey].length)];
                 };
             } catch { }
         },

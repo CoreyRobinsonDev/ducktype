@@ -11,23 +11,20 @@ import {
     TbNumber0,
     } from "react-icons/tb"; 
 
-export default function Number({number}: {number: number}) {
-    const attributes = {
-        size: "100%",
-        style: {
-            width: "fit-content",
-        }
-    }
+export default function Number({
+    number, 
+    className
+}: {number: number, className: any}) {
     switch(number) {
-        case 0: return <TbNumber0 {...attributes} />;
-        case 1: return <TbNumber1 {...attributes} />;
-        case 2: return <TbNumber2 {...attributes} />;
-        case 3: return <TbNumber3 {...attributes} />;
-        case 4: return <TbNumber4 {...attributes} />;
-        case 5: return <TbNumber5 {...attributes} />;
-        case 6: return <TbNumber6 {...attributes} />;
-        case 7: return <TbNumber7 {...attributes} />;
-        case 8: return <TbNumber8 {...attributes} />;
-        case 9: return <TbNumber9 {...attributes} />;
+        case 0: return <TbNumber0 className={className} />;
+        case 1: return <TbNumber1 className={className} />;
+        case 2: return <TbNumber2 className={className} />;
+        case 3: return <TbNumber3 className={className} />;
+        case 4: return <TbNumber4 className={className} />;
+        case 5: return <TbNumber5 className={className} />;
+        case 6: return <TbNumber6 className={className} />;
+        case 7: return <TbNumber7 className={className} />;
+        case 8: return <TbNumber8 className={className} />;
+        case 9: return <TbNumber9 className={className} />;
     }
 }

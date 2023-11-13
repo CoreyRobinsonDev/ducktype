@@ -24,7 +24,7 @@ const typescript = [
     "let promise = new Promise<string>((resolve, reject) => {\n\t// Resolve or reject the promise based on some condition\n});",
     "async function getData(): Promise<string> {\n\tlet result = await fetch(\"https://api.example.com/data\");\n\treturn result;\n}",
     "function classDecorator<T extends { new (...args: any[]): {} }>(constructor: T) {\n\treturn class extends constructor {\n\t\tnewProperty = \"new property\";\n\t\thello = \"override\";\n\t};\n}",
-    "let someValue: any = \"this is a string\";\n\tlet strLength: number = (someValue as string).length;",
+    "let someValue: any = \"this is a string\";\nlet strLength: number = (someValue as string).length;",
     "function getProperty<T, K extends keyof T>(obj: T, key: K) {\n\treturn obj[key];\n}",
     "type PartialPoint = Partial<Point>;",
     "type RequiredPoint = Required<PartialPoint>;",

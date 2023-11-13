@@ -28,7 +28,11 @@ const html = [
     "<nav>\n\t<ul>\n\t\t<li><a href=\"#\">Page 1</a></li>\n\t\t<li><a href=\"#\">Page 2</a></li>\n\t\t<li><a href=\"#\">Page 3</a></li>\n\t</ul>\n</nav>",
     "<section>\n\t<h3>Another Section Title</h3>\n\t<p>This is another section.</p>\n</section>",
     "<aside>\n\t<h3>Another Aside Title</h3>\n\t<p>This is another aside.</p>\n</aside>",
-    "<article>\n\t<h3>Another Article Title</h3>\n\t<p>This is another article.</p>\n</article>"
+    "<article>\n\t<h3>Another Article Title</h3>\n\t<p>This is another article.</p>\n</article>",
+    "<!DOCTYPE html>\n<html>\n<head>\n\t<title>My HTML Page</title>\n</head>\n<body>\n\t<h1>Hello, World!</h1>\n\t<p>This is a simple HTML page.</p>\n</body>\n</html>",
+    "<html>\n<body>\n\t<form action=\"/submit\" method=\"post\">\n\t\t<label for=\"username\">Username:</label>\n\t\t<input type=\"text\" id=\"username\" name=\"username\">\n\t\t<br>\n\t\t<label for=\"password\">Password:</label>\n\t\t<input type=\"password\" id=\"password\" name=\"password\">\n\t\t<br>\n\t\t<input type=\"submit\" value=\"Submit\">\n\t</form>\n</body>\n</html>",
+    "<html>\n<head>\n\t<script>\n\t\tfunction showMessage() {\n\t\t\talert('Hello, World!');\n\t\t}\n\t</script>\n</head>\n<body>\n\t<button onclick=\"showMessage()\">Click me</button>\n</body>\n</html>",
+    "<html>\n<body>\n\t<svg width=\"100\" height=\"100\">\n\t\t<circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" />\n\t</svg>\n</body>\n</html>",
 ]
 
 export default html;
