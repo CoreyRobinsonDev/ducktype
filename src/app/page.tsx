@@ -1,6 +1,5 @@
 "use client";
 import { Provider } from 'react-redux';
-import { useEffect } from 'react';
 
 import store from '@/util/store';
 import styles from './page.module.css'

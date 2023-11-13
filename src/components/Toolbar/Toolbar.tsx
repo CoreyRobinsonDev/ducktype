@@ -1,5 +1,6 @@
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import type { RefObject } from "react";
+import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdMoreVert, MdRestartAlt } from "react-icons/md";
 
@@ -21,11 +22,13 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
     const language = useAppSelector(state => state.app.language);
     const dispatch = useAppDispatch();
     const [parent] = useAutoAnimate();
+    const [showMobile, setShowMobile] = useState(false);
 
     const handleRestart = () => {
         dispatch(restart());
         dispatch(save_client_to_cache());
         textboxRef?.current?.focus();
+        setShowMobile(false);
     }
 
     const handleTime = (time: number) => {
@@ -33,6 +36,7 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
         dispatch(restart());
         dispatch(save_client_to_cache());
         textboxRef?.current?.focus();
+        setShowMobile(false);
     }
 
     const handleLanguage = (lang: string) => {
@@ -41,6 +45,7 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
         dispatch(gen_prompt());
         dispatch(save_client_to_cache());
         textboxRef?.current?.focus();
+        setShowMobile(false);
     }
 
     return <section ref={parent} className={styles.section}>
@@ -107,8 +112,47 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
                 onClick={() => handleLanguage("cpp")}>C++</li>
             <MdMoreVert className={styles.dot_menu} />
         </ul>
-        <ul className={styles.mobile_list}>
-            <GiHamburgerMenu className={styles.hamburger_menu} />
+        <GiHamburgerMenu 
+            className={styles.hamburger_menu} 
+            onClick={() => setShowMobile(!showMobile)} />
+        <ul className={`${styles.mobile_list} ${showMobile ? styles.show : styles.hide}`}>
+            <li 
+                className={language === "html" ? styles.focus : ""} 
+                onClick={() => handleLanguage("html")}>HTML</li>
+            <li 
+                className={language === "css" ? styles.focus : ""} 
+                onClick={() => handleLanguage("css")}>CSS</li>
+            <li 
+                className={language === "javascript" ? styles.focus : ""} 
+                onClick={() => handleLanguage("javascript")}>JavaScript</li>
+            <li 
+                className={language === "typescript" ? styles.focus : ""} 
+                onClick={() => handleLanguage("typescript")}>TypeScript</li>
+            <li
+                className={language === "sql" ? styles.focus : ""} 
+                onClick={() => handleLanguage("sql")}>SQL</li>
+            <li 
+                className={language === "python" ? styles.focus : ""} 
+                onClick={() => handleLanguage("python")}>Python</li>
+            <li 
+                className={language === "java" ? styles.focus : ""} 
+                onClick={() => handleLanguage("java")}>Java</li>
+            <li 
+                className={language === "go" ? styles.focus : ""} 
+                onClick={() => handleLanguage("go")}>Go</li>
+            <li 
+                className={language === "rust" ? styles.focus : ""} 
+                onClick={() => handleLanguage("rust")}>Rust</li>
+            <li 
+                className={language === "c" ? styles.focus : ""} 
+                onClick={() => handleLanguage("c")}>C</li>
+            <li 
+                className={language === "csharp" ? styles.focus : ""} 
+                onClick={() => handleLanguage("csharp")}>C#</li>
+            <li 
+                className={language === "cpp" ? styles.focus : ""} 
+                onClick={() => handleLanguage("cpp")}>C++</li>
+
         </ul>
     </section>
 }
