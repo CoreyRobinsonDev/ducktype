@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     theme: "dark",
     isCache: true,
-    showDebug: false
+    showDebug: true
 }
 
 const configSlice = createSlice({

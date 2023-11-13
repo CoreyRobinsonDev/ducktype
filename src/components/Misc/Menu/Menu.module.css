@@ -1,0 +1,34 @@
+.menu {
+    position: absolute;
+    top: 4rem;
+    right: 4rem;
+    flex-direction: column;
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+    border-radius: 4px;
+    padding: 2rem 0;
+    width: 14rem;
+    z-index: 10;
+}
+
+.menu > * {
+    padding: 1rem 2rem;
+}
+
+.menu:nth-child(3) {
+    padding: 3rem;
+}
+
+
+.menu *:hover {
+    background-color: var(--on-primary);
+    color: var(--primary);
+}
+
+.show {
+    display: inherit;
+}
+
+.hide {
+    display: none;
+}

@@ -8,7 +8,7 @@ import {
     decrement_time,
     save_client_to_cache,
 } from "@/util/slices/appSlice";
-import Number from "./Number";
+import Number from "@/components/Misc/Number/Number";
 
 export default function Timer({children}: {children: React.ReactNode}) {
     const time = useAppSelector(state => state.app.time);

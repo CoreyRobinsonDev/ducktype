@@ -20,7 +20,7 @@
 
 .prompt, .section textarea {
     font-weight: 600;
-    letter-spacing: .08rem;
+    letter-spacing: .1rem;
     text-wrap: nowrap;
     padding: 4rem;
     --transition: all 100ms linear;
