@@ -26,12 +26,22 @@
 .mobile_list *:hover, 
 .times li:hover, 
 .restart_btn:hover,
+.dot_menu:hover,
 .mobile_restart_btn:hover {
     color: var(--primary-container);
 }
 
+.focus {
+    color: var(--primary-container);
+    border-bottom: 1px solid var(--primary-container);
+}
+
 .list {
     padding-right: 2rem;
+}
+
+.dot_menu {
+    border-radius: 50%;
 }
 
 .mobile_list, .mobile_restart_btn {

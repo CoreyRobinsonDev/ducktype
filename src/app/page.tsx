@@ -16,12 +16,10 @@ export default function Home() {
     return <Provider store={store}>
         <Header/>
         <main className={styles.main}>
-            <Debug />
             <div className={styles.content_container}>
                 <RefProvider />
                 <Cards />
             </div>
-            <Debug />
         </main> 
         <Footer/>
     </Provider>

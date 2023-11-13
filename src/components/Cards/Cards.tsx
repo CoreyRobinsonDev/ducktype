@@ -44,7 +44,7 @@ export default function Cards() {
             <p className={styles.data}>{Math.round(accuracy * 100)}%</p>
         </div>
         <div className={styles.card}>
-            <h2 title="highest words per minute">best</h2>
+            <h2 title="highest words per minute">highest wpm</h2>
             <p className={styles.data}>{Math.round(bestWpm)}</p>
             <h2 title="characters typed this prompt / total correct characters typed / total characters typed / total characters sent">characters</h2>
             <p className={styles.data_small}>{characters}/{charactersCorrect}/{charactersTyped}/{totalCharacters}</p>

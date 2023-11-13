@@ -17,6 +17,8 @@ import {
 
 export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAreaElement>}) {
     const time = useAppSelector(state => state.app.time);
+    const initialTime = useAppSelector(state => state.app.initialTime);
+    const language = useAppSelector(state => state.app.language);
     const dispatch = useAppDispatch();
     const [parent] = useAutoAnimate();
 
@@ -43,10 +45,18 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
 
     return <section ref={parent} className={styles.section}>
         <ul className={styles.times}>
-            <li onClick={() => handleTime(10)}>10</li>
-            <li onClick={() => handleTime(30)}>30</li>
-            <li onClick={() => handleTime(60)}>60</li>
-            <li onClick={() => handleTime(120)}>120</li>
+            <li 
+                className={initialTime === 10 ? styles.focus : ""} 
+                onClick={() => handleTime(10)}>10</li>
+            <li 
+                className={initialTime === 30 ? styles.focus : ""} 
+                onClick={() => handleTime(30)}>30</li>
+            <li 
+                className={initialTime === 60 ? styles.focus : ""} 
+                onClick={() => handleTime(60)}>60</li>
+            <li 
+                className={initialTime === 120 ? styles.focus : ""} 
+                onClick={() => handleTime(120)}>120</li>
         </ul>
         { time === 0
             && <><button 
@@ -59,22 +69,46 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
                 </>
         }
         <ul className={styles.list}>
-            <li onClick={() => handleLanguage("html")}>HTML</li>
-            <li onClick={() => handleLanguage("css")}>CSS</li>
-            <li onClick={() => handleLanguage("javascript")}>JavaScript</li>
-            <li onClick={() => handleLanguage("typescript")}>TypeScript</li>
-            <li onClick={() => handleLanguage("sql")}>SQL</li>
-            <li onClick={() => handleLanguage("python")}>Python</li>
-            <li onClick={() => handleLanguage("java")}>Java</li>
-            <li onClick={() => handleLanguage("go")}>Go</li>
-            <li onClick={() => handleLanguage("rust")}>Rust</li>
-            <li onClick={() => handleLanguage("c")}>C</li>
-            <li onClick={() => handleLanguage("csharp")}>C#</li>
-            <li onClick={() => handleLanguage("cpp")}>C++</li>
-            <MdMoreVert />
+            <li 
+                className={language === "html" ? styles.focus : ""} 
+                onClick={() => handleLanguage("html")}>HTML</li>
+            <li 
+                className={language === "css" ? styles.focus : ""} 
+                onClick={() => handleLanguage("css")}>CSS</li>
+            <li 
+                className={language === "javascript" ? styles.focus : ""} 
+                onClick={() => handleLanguage("javascript")}>JavaScript</li>
+            <li 
+                className={language === "typescript" ? styles.focus : ""} 
+                onClick={() => handleLanguage("typescript")}>TypeScript</li>
+            <li
+                className={language === "sql" ? styles.focus : ""} 
+                onClick={() => handleLanguage("sql")}>SQL</li>
+            <li 
+                className={language === "python" ? styles.focus : ""} 
+                onClick={() => handleLanguage("python")}>Python</li>
+            <li 
+                className={language === "java" ? styles.focus : ""} 
+                onClick={() => handleLanguage("java")}>Java</li>
+            <li 
+                className={language === "go" ? styles.focus : ""} 
+                onClick={() => handleLanguage("go")}>Go</li>
+            <li 
+                className={language === "rust" ? styles.focus : ""} 
+                onClick={() => handleLanguage("rust")}>Rust</li>
+            <li 
+                className={language === "c" ? styles.focus : ""} 
+                onClick={() => handleLanguage("c")}>C</li>
+            <li 
+                className={language === "csharp" ? styles.focus : ""} 
+                onClick={() => handleLanguage("csharp")}>C#</li>
+            <li 
+                className={language === "cpp" ? styles.focus : ""} 
+                onClick={() => handleLanguage("cpp")}>C++</li>
+            <MdMoreVert className={styles.dot_menu} />
         </ul>
         <ul className={styles.mobile_list}>
-            <GiHamburgerMenu/>
+            <GiHamburgerMenu className={styles.hamburger_menu} />
         </ul>
     </section>
 }

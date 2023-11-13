@@ -1,5 +1,5 @@
 .aside {
-    flex: 1 1 150px;
+    flex: 1 1 100px;
     background-color: var(--error);
     color: var(--on-error);
     font-weight: bold;

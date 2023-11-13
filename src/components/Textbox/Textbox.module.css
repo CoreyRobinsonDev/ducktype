@@ -1,5 +1,5 @@
 .section {
-    flex: 1 1 100px;
+    flex: 1 1 400px;
     display: flex;
     justify-content: space-between;
     position: relative;
@@ -80,6 +80,7 @@
 
     .prompt, .section textarea {
         padding: 2rem;
+        text-wrap: wrap;
     }
 }
 

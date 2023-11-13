@@ -37,10 +37,10 @@ export default function Timer({children}: {children: React.ReactNode}) {
 
     return <span className={styles.section}>
         {children}
-        <p className={styles.time}>
-            <Number number={Math.floor(time / 100)} />
-            <Number number={Math.floor(time / 10) % 10} />
-            <Number number={time % 10} />
+        <p className={styles.number_container}>
+            <Number className={styles.num_1} number={Math.floor(time / 100)} />
+            <Number className={styles.num_2} number={Math.floor(time / 10) % 10} />
+            <Number className={styles.num_3} number={time % 10} />
         </p>
     </span>
 }
