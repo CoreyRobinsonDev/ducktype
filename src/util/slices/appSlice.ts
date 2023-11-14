@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { prompts } from "../prompts";
 
 type PromptsKey = keyof typeof prompts;
+
 const initialState = {
     time: 30,
     initialTime: 30,
