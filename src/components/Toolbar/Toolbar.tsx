@@ -16,7 +16,8 @@ import {
 } from "@/util/slices/appSlice";
 import {
     toggleDebug,
-    toggleTheme
+    toggleTheme,
+    save_client_to_cache as save_config
 } from "@/util/slices/configSlice";
 import Menu from "@/components/Misc/Menu/Menu";
 
@@ -35,6 +36,7 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
     const handleRestart = () => {
         dispatch(restart());
         dispatch(save_client_to_cache());
+        dispatch(save_config());
         textboxRef?.current?.focus();
         setShowMobile(false);
         setShowSettings(false);
@@ -44,6 +46,7 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
         dispatch(set_time(time));
         dispatch(restart());
         dispatch(save_client_to_cache());
+        dispatch(save_config());
         textboxRef?.current?.focus();
         setShowMobile(false);
         setShowSettings(false);
@@ -54,6 +57,7 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
         dispatch(restart());
         dispatch(gen_prompt());
         dispatch(save_client_to_cache());
+        dispatch(save_config());
         textboxRef?.current?.focus();
         setShowMobile(false);
         setShowSettings(false);
@@ -61,12 +65,16 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
 
     const handleDebug = () => {
         dispatch(toggleDebug());
+        dispatch(save_client_to_cache());
+        dispatch(save_config());
         setShowMobile(false);
         setShowSettings(false);
     }
 
     const handleCache = () => {
         dispatch(clearCache());
+        dispatch(save_client_to_cache());
+        dispatch(save_config());
         setShowMobile(false);
         setShowSettings(false);
     }

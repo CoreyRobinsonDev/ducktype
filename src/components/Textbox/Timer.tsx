@@ -8,6 +8,7 @@ import {
     decrement_time,
     save_client_to_cache,
 } from "@/util/slices/appSlice";
+import { save_client_to_cache as save_config } from "@/util/slices/configSlice";
 import Number from "@/components/Misc/Number/Number";
 
 export default function Timer({children}: {children: React.ReactNode}) {
@@ -31,8 +32,10 @@ export default function Timer({children}: {children: React.ReactNode}) {
     }, [hasStart, time])
 
     useEffect(() => {
-        if (time === 0)
+        if (time === 0) {
             dispatch(save_client_to_cache());
+            dispatch(save_config());
+        }
     }, [time])
 
     return <span className={styles.section}>
