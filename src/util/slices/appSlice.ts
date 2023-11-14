@@ -111,6 +111,13 @@ const appSlice = createSlice({
         },
         save_client_to_cache: (state) => {
             window.localStorage.setItem("app_state", JSON.stringify(state));
+        },
+        clearCache: (state) => {
+            window.localStorage.clear();
+            for (let entry of Object.entries(initialState)) {
+                //@ts-ignore
+                state[entry[0] as PromptsKey] = entry[1];
+            }
         }
     }
 })
@@ -136,5 +143,6 @@ export const {
     remove_character,
     load_cache_to_client,
     save_client_to_cache,
+    clearCache
 } = appSlice.actions;
 

@@ -7,11 +7,11 @@ import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
 import Debug from '@/components/Debug/Debug';
 import Cards from '@/components/Cards/Cards';
+import Card from '@/components/Misc/Card/Card';
 import RefProvider from '@/components/RefProvider/RefProvider';
 
 
 export default function Home() {
-
     return <Provider store={store}>
         <Header/>
         <main className={styles.main}>
@@ -19,6 +19,7 @@ export default function Home() {
                 <RefProvider />
                 <Cards />
             </div>
+            <Card>Leaderboard</Card>
             <Debug />
         </main> 
         <Footer/>

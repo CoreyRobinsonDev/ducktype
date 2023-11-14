@@ -1,4 +1,3 @@
-import Card from "@/components/Misc/Card/Card";
 import styles from "./Debug.module.css";
 import { useAppSelector } from "@/util/store";
 
@@ -7,9 +6,7 @@ export default function Debug() {
     const showDebug = useAppSelector(state => state.config.showDebug);
 
     if (!showDebug)
-        return <Card>
-            <h2>Leaderboard</h2>
-        </Card>
+        return <></>
         
     return <aside className={styles.aside}>
         <section className={styles.state_container}>

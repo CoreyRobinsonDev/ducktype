@@ -11,8 +11,13 @@ import {
     restart,
     swap_language,
     gen_prompt,
+    clearCache,
     save_client_to_cache
-    } from "@/util/slices/appSlice";
+} from "@/util/slices/appSlice";
+import {
+    toggleDebug,
+    toggleTheme
+} from "@/util/slices/configSlice";
 import Menu from "@/components/Misc/Menu/Menu";
 
 
@@ -20,15 +25,19 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
     const time = useAppSelector(state => state.app.time);
     const initialTime = useAppSelector(state => state.app.initialTime);
     const language = useAppSelector(state => state.app.language);
+    const showDebug = useAppSelector(state => state.config.showDebug);
+    const theme = useAppSelector(state => state.config.theme);
     const dispatch = useAppDispatch();
     const [parent] = useAutoAnimate();
     const [showMobile, setShowMobile] = useState(false);
+    const [showSettings, setShowSettings] = useState(false);
 
     const handleRestart = () => {
         dispatch(restart());
         dispatch(save_client_to_cache());
         textboxRef?.current?.focus();
         setShowMobile(false);
+        setShowSettings(false);
     }
 
     const handleTime = (time: number) => {
@@ -37,6 +46,7 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
         dispatch(save_client_to_cache());
         textboxRef?.current?.focus();
         setShowMobile(false);
+        setShowSettings(false);
     }
 
     const handleLanguage = (lang: string) => {
@@ -46,6 +56,19 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
         dispatch(save_client_to_cache());
         textboxRef?.current?.focus();
         setShowMobile(false);
+        setShowSettings(false);
+    }
+
+    const handleDebug = () => {
+        dispatch(toggleDebug());
+        setShowMobile(false);
+        setShowSettings(false);
+    }
+
+    const handleCache = () => {
+        dispatch(clearCache());
+        setShowMobile(false);
+        setShowSettings(false);
     }
 
     return <section ref={parent} className={styles.section}>
@@ -110,8 +133,14 @@ export default function Toolbar({textboxRef}: {textboxRef: RefObject<HTMLTextAre
             <li 
                 className={language === "cpp" ? styles.focus : ""} 
                 onClick={() => handleLanguage("cpp")}>C++</li>
-            <MdMoreVert className={styles.dot_menu} />
+            <MdMoreVert 
+            className={styles.dot_menu}
+            onClick={() => setShowSettings(!showSettings)} />
         </ul>
+        <Menu isVisible={showSettings}>
+            <li onClick={handleDebug}>{showDebug ? "Disable Debug Window" : "Enable Debug Window"}</li>
+            <li onClick={handleCache}>Clear Cache</li>
+        </Menu>
         <GiHamburgerMenu 
             className={styles.hamburger_menu} 
             onClick={() => setShowMobile(!showMobile)} />

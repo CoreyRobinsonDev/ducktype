@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     theme: "dark",
-    isCache: true,
     showDebug: true
 }
 
@@ -15,9 +14,6 @@ const configSlice = createSlice({
             ? state.theme = "light"
             : state.theme = "dark"
         },
-        toggleCache: (state) => {
-            state.isCache = !state.isCache;
-        },
         toggleDebug: (state) => {
             state.showDebug = !state.showDebug;
         }
@@ -27,6 +23,5 @@ const configSlice = createSlice({
 export const configReducer = configSlice.reducer;
 export const {
     toggleTheme,
-    toggleCache,
     toggleDebug
 } = configSlice.actions;
