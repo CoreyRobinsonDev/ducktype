@@ -3,7 +3,11 @@ import { useAppSelector } from "@/util/store";
 
 export default function Debug() {
     const state = useAppSelector(state => state.app);
+    const showDebug = useAppSelector(state => state.config.showDebug);
 
+    if (!showDebug)
+        return <></>
+        
     return <aside className={styles.aside}>
         <section className={styles.state_container}>
             {Object.entries(state).map((entry, i) => <p key={`state-${i}`} className={styles.state}>

@@ -1,5 +1,6 @@
 import styles from "./Cards.module.css";
 import { useAppSelector } from "@/util/store";
+import Card from "@/components/Misc/Card/Card";
 
 export default function Cards() {
     const wpm = useAppSelector(state => state.app.wpm);
@@ -17,7 +18,7 @@ export default function Cards() {
 
 
     return <section className={styles.section}>
-        <div className={styles.card}>
+        <Card>
             <h2 title="words per minute">wpm</h2>
             <span className={styles.wpm_container}>
                 <p className={styles.data}>{Math.round(wpm)}</p>
@@ -25,14 +26,14 @@ export default function Cards() {
             </span>
             <h2 title="percent of correct characters typed">accuracy</h2>
             <p className={styles.data}>{Math.round(accuracy * 100)}%</p>
-        </div>
-        <div className={styles.card}>
+        </Card>
+        <Card>
             <h2 title="highest words per minute">highest wpm</h2>
             <p className={styles.data}>{Math.round(bestWpm)}</p>
             <h2 title="characters typed this prompt / total correct characters typed / total characters typed / total characters sent">characters</h2>
             <p className={styles.data_small}>{characters}/{charactersCorrect}/{charactersTyped}/{totalCharacters}</p>
-        </div>
-        <div className={styles.card}>
+        </Card>
+        <Card>
             <h2 title="characters per minute">cpm</h2>
             <span className={styles.wpm_container}>
                 <p className={styles.data}>{Math.round(cpm)}</p>
@@ -42,7 +43,7 @@ export default function Cards() {
             <p className={styles.data_small}>{initialTime}sec</p>
             <h2 title="prompt language">language</h2>
             <p className={styles.data_small}>{getLanguageName(language)}</p>
-        </div>
+        </Card>
     </section>
 }
 
