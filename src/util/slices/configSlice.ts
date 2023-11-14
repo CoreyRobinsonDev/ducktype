@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     theme: "dark",
-    showDebug: true
+    showDebug: false
 }
 
 const configSlice = createSlice({
