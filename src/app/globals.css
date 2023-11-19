@@ -1,6 +1,6 @@
 :root {
 	--max-width: 1100px;
-    --border: 30px;
+    --border: 15px;
     --shadow: 2px 2px 2px 1px rgba(0,0,0,0.2);
 
     --bg: #1a1c19;
@@ -61,6 +61,9 @@ body {
     text-rendering: optimizeSpeed;
     background-color: var(--bg);
     overflow-x: initial;
+
+    /*CUSTOM*/
+    padding: 2rem 0;
 }
 
 body::-webkit-scrollbar {

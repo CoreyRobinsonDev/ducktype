@@ -19,8 +19,11 @@ export default function Home() {
                 <RefProvider />
                 <Cards />
             </div>
-            <Card>Leaderboard</Card>
             <Debug />
+            <Card>
+               <h2>Leaderboard</h2> 
+               <b>soon&#8482;</b>
+            </Card>
         </main> 
         <Footer/>
     </Provider>
