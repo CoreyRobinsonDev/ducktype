@@ -19,6 +19,7 @@ import {
     } from "@/util/slices/appSlice";
 import styles from "./Textbox.module.css";
 import Timer from "./Timer";
+import { fromCharCode } from "@/util/fromCharCode";
 
 export default function Textbox({textboxRef}: {textboxRef: RefObject<HTMLTextAreaElement>}) {
     const prompt = useAppSelector(state => state.app.prompt);
@@ -31,34 +32,31 @@ export default function Textbox({textboxRef}: {textboxRef: RefObject<HTMLTextAre
     // process typing
     useEffect(() => {
         const keyDownHandler = (e: KeyboardEvent) => {
-        if (hasStart)
-            switch (e.key) {
-                case "Tab": {
+            if (!hasStart) return;
+            // using .keyCode for vitual keyboards on mobile
+            if (e.key === "Tab" || fromCharCode(e.keyCode, e.shiftKey) === "Tab") {
+                e.preventDefault();
+                if (prompt[characters.length] === "\t")
+                    dispatch(add_character("\t"));
+            } else if (e.key === "Enter" || fromCharCode(e.keyCode, e.shiftKey) === "Enter") {
+                e.preventDefault();
+                if (prompt[characters.length] === "\n")
+                    dispatch(add_character("\n"));
+            } else {
+                if (((prompt[characters.length] === "\n" || 
+                    prompt[characters.length] === "\t") && 
+                    (e.key !== "Backspace" || fromCharCode(e.keyCode, e.shiftKey) !== "Backspace")) ||
+                    time === 0) {
                     e.preventDefault();
-                    if (prompt[characters.length] === "\t")
-                        dispatch(add_character("\t"));
-                    break;
-                }
-                case "Enter": {
-                    e.preventDefault();
-                    if (prompt[characters.length] === "\n")
-                        dispatch(add_character("\n"));
-                    break;
-                }
-                default: {
-                    if (((prompt[characters.length] === "\n" || 
-                        prompt[characters.length] === "\t") && 
-                        e.key !== "Backspace") ||
-                        time === 0) {
-                        e.preventDefault();
-                    } else if (e.key !== " " && e.key !== "Backspace" && e.key !== "Shift" && time > 0) {
-                        if (prompt[characters.length] === e.key)
-                            dispatch(send_correct_character());
-                        dispatch(type_character());
-                        dispatch(calc_accuracy());
-                        dispatch(calc_cpm());
-                        dispatch(calc_wpm());
-                    }
+                } else if ((e.key !== "Backspace" || fromCharCode(e.keyCode, e.shiftKey) !== "Backspace") 
+                    && !e.shiftKey 
+                    && time > 0) {
+                    if (prompt[characters.length] === e.key || prompt[characters.length] === fromCharCode(e.keyCode, e.shiftKey))
+                        dispatch(send_correct_character());
+                    dispatch(type_character());
+                    dispatch(calc_accuracy());
+                    dispatch(calc_cpm());
+                    dispatch(calc_wpm());
                 }
             }
         }
