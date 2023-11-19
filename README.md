@@ -1,9 +1,9 @@
+![ducktype header](./public/ducktype.png?raw=true)
 # Welcome to *ducktype* – The Ultimate Typing Playground for Programmers!
 
-*ducktype* isn't just a typing practice site; it's a dynamic platform designed exclusively for programmers like YOU seeking to enhance our coding speed and accuracy. I understand that typing proficiency is a crucial skill for developers, and that's why I've tailored this platform to meet the unique needs of hackers, coding enthusiasts, and nerds alike.
+*ducktype* isn't just a typing practice site; it's a dynamic platform designed exclusively for programmers like YOU seeking to enhance your coding speed and accuracy. I understand that typing proficiency is a crucial skill for developers, and that's why I've tailored this platform to meet the unique needs of hackers, coding enthusiasts, and nerds alike.
 
 ## Key Features:
-
 ### 1. Code-specific Exercises:
 Dive into a world of programming languages with specially crafted exercises. Practice typing code snippets in languages such as Python, JavaScript, Java, C++, and more.
 
