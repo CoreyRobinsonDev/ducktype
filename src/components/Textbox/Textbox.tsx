@@ -19,7 +19,6 @@ import {
     } from "@/util/slices/appSlice";
 import styles from "./Textbox.module.css";
 import Timer from "./Timer";
-import { fromCharCode } from "@/util/fromCharCode";
 
 export default function Textbox({textboxRef}: {textboxRef: RefObject<HTMLTextAreaElement>}) {
     const prompt = useAppSelector(state => state.app.prompt);
@@ -32,31 +31,40 @@ export default function Textbox({textboxRef}: {textboxRef: RefObject<HTMLTextAre
     // process typing
     useEffect(() => {
         const keyDownHandler = (e: KeyboardEvent) => {
+            console.log(prompt[characters.length - 1], characters[characters.length - 1])
+            console.log(e.key)
             if (!hasStart) return;
-            // using .keyCode for vitual keyboards on mobile
-            if (e.key === "Tab" || fromCharCode(e.keyCode, e.shiftKey) === "Tab") {
-                e.preventDefault();
-                if (prompt[characters.length] === "\t")
-                    dispatch(add_character("\t"));
-            } else if (e.key === "Enter" || fromCharCode(e.keyCode, e.shiftKey) === "Enter") {
-                e.preventDefault();
-                if (prompt[characters.length] === "\n")
-                    dispatch(add_character("\n"));
-            } else {
-                if (((prompt[characters.length] === "\n" || 
-                    prompt[characters.length] === "\t") && 
-                    (e.key !== "Backspace" || fromCharCode(e.keyCode, e.shiftKey) !== "Backspace")) ||
-                    time === 0) {
+            switch (e.key) {
+                case "Tab": {
                     e.preventDefault();
-                } else if ((e.key !== "Backspace" || fromCharCode(e.keyCode, e.shiftKey) !== "Backspace") 
-                    && !e.shiftKey 
-                    && time > 0) {
-                    if (prompt[characters.length] === e.key || prompt[characters.length] === fromCharCode(e.keyCode, e.shiftKey))
-                        dispatch(send_correct_character());
-                    dispatch(type_character());
-                    dispatch(calc_accuracy());
-                    dispatch(calc_cpm());
-                    dispatch(calc_wpm());
+                    if (prompt[characters.length] === "\t")
+                        dispatch(add_character("\t"));
+                    break;
+                }
+                case "Enter": {
+                    e.preventDefault();
+                    if (prompt[characters.length] === "\n")
+                        dispatch(add_character("\n"));
+                    break;
+                }
+                case "Backspace": break;
+                case "Escape": {
+                    e.preventDefault();
+                    break;
+                }
+                default: {
+                    if ((prompt[characters.length] === "\n" || 
+                        prompt[characters.length] === "\t") ||
+                        time === 0) {
+                        e.preventDefault();
+                    } else if (!e.shiftKey && time > 0) {
+                        if (prompt[characters.length - 1] === characters[characters.length - 1])
+                            dispatch(send_correct_character());
+                        dispatch(type_character());
+                        dispatch(calc_accuracy());
+                        dispatch(calc_cpm());
+                        dispatch(calc_wpm());
+                    }
                 }
             }
         }
