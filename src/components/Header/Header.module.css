@@ -36,6 +36,13 @@
 .inner_header {
     grid-area: 1/2/2/3;
     display: flex;
+    position: relative;
+}
+
+.duck {
+    position: absolute;
+    top: 0;
+    left: 2.2ch;
 }
 
 @media only screen and (max-width: 1000px) {
