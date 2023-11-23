@@ -53,7 +53,7 @@ const appSlice = createSlice({
         },
         calc_cpm: (state) => {
             const minuteRatio = 60 / state.initialTime;
-            const cpm = state.charactersCorrect * minuteRatio;
+            const cpm = (state.charactersCorrect + 1) * minuteRatio;
             const averageCpm = state.charactersTyped * minuteRatio;
             state.cpm = cpm 
             state.inaccurateCpm = averageCpm;
