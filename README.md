@@ -5,7 +5,7 @@
 
 ## Key Features:
 ### 1. Code-specific Exercises:
-Dive into a world of programming languages with specially crafted exercises. Practice typing code snippets in languages such as Python, JavaScript, Java, C++, and more.
+Dive into a world of programming languages with specially crafted exercises. Practice typing code snippets in languages such as Python, JavaScript, Java, Rust (btw), and more.
 
 ### 2. Performance Analytics:
 Track your progress over time with detailed performance analytics. Monitor your words per minute (WPM), accuracy, and identify areas for improvement. Set personal goals and celebrate milestones as you watch your typing skills evolve.
